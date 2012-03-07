@@ -11,6 +11,4 @@ describe Board, "#playerAt" do
     board.playerAt(2).should eq("o")
     board.playerAt(3).should be_nil
   end
-  it "testing edit" do
-  end
 end 
