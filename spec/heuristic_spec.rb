@@ -5,6 +5,7 @@ describe Heuristic do
   it "wins if possible" do
     takeSquaresAndExpectWin(1, 2, 3)
     takeSquaresAndExpectWin(1, 4, 7)
+    takeSquaresAndExpectWin(7, 8, 9)
   end
 end
 
