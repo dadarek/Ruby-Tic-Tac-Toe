@@ -2,19 +2,19 @@ require 'heuristic'
 require 'board'
 
 describe Heuristic do
-  it "wins if possible" do
-    takeSquaresAndExpectWin(1, 2, 3)
-    takeSquaresAndExpectWin(1, 4, 7)
-    takeSquaresAndExpectWin(7, 8, 9)
+  before(:each) do
+    @board = Board.new
+    @heuristic = Heuristic.new
   end
-end
 
-def takeSquaresAndExpectWin(square1, square2, expectedWinningSquare)
-    board = Board.new
-
-    board.takeSquare(square1, "x")
-    board.takeSquare(square2, "x")
-
-    heuristic = Heuristic.new
-    heuristic.nextMove("x", board).should eq(expectedWinningSquare)
+  it "take first winning row" do
+    @board.takeSquare(1, "x")
+    @board.takeSquare(2, "x")
+    @heuristic.nextMove("x", @board).should == 3
+  end
+  it "takes second winning row" do
+    @board.takeSquare(5, "x")
+    @board.takeSquare(6, "x")
+    @heuristic.nextMove("x", @board).should == 4
+  end
 end

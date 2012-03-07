@@ -1,19 +1,31 @@
 class Heuristic
-  def initialize
-  end
   def nextMove(player, board)
-    result ||= get3rdIfPlayerOwns2(player, board, 1, 2, 3)
-    result ||= get3rdIfPlayerOwns2(player, board, 1, 4, 7)
+    result ||= getLastOpenSquareInRow(player, board, 1)
+    result ||= getLastOpenSquareInRow(player, board, 2)
+    result ||= getLastOpenSquareInRow(player, board, 3)
     result
   end
-  def get3rdIfPlayerOwns2(player, board, square1, square2, square3)
+  def getLastOpenSquareInRow(player, board, rowNumber)
     result = nil
-    if(playerOwnsSquares(player, board, square1, square2))
-      result = square3
+    firstSquareInRow = rowNumber * 3 - 2;
+    allSquaresInRow = Array.new(3) { |i| firstSquareInRow + i }
+    squaresOwnedByPlayer = Array.new
+    emptySquares = Array.new
+    allSquaresInRow.each do |item|
+      if(playerOwnsSquare(player, board, item))
+        squaresOwnedByPlayer.push(item)
+      elsif board.playerAt(item).nil?
+        emptySquares.push(item)
+      end
+    end
+    if squaresOwnedByPlayer.count == 2
+      if emptySquares.count == 1
+        result = emptySquares[0]
+      end
     end
     result
   end
-  def playerOwnsSquares(player, board, square1, square2)
-    board.playerAt(square1) == player and board.playerAt(square2) == player  
+  def playerOwnsSquare(player, board, square)
+    board.playerAt(square) == player 
   end
 end
