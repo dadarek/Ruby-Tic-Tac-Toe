@@ -1,6 +1,11 @@
 require 'board'
 
 describe Board, "#playerAt" do
+  it "has empty squares" do
+    board = Board.new
+
+    (1..10).each{|i| board.isEmpty(i).should == true }
+  end
   it "remembers players squares" do
     board = Board.new
 

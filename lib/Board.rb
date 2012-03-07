@@ -6,6 +6,9 @@ class Board
     @squares[square] = player
   end
 
+  def isEmpty(square)
+    @squares[square].nil?
+  end
   def playerAt(square)
     @squares[square]
   end
