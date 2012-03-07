@@ -10,17 +10,9 @@ class Heuristic
   end
   def getLastOpenSquareInRow(player, rowNumber)
     result = nil
-    firstSquareInRow = rowNumber * 3 - 2;
-    allSquaresInRow = Array.new(3) { |i| firstSquareInRow + i }
-    squaresOwnedByPlayer = Array.new
-    emptySquares = Array.new
-    allSquaresInRow.each do |item|
-      if(playerOwnsSquare(player, item))
-        squaresOwnedByPlayer.push(item)
-      elsif @board.isEmpty(item)
-        emptySquares.push(item)
-      end
-    end
+    allSquaresInRow = getSquaresInRow(rowNumber) 
+    squaresOwnedByPlayer = getSquaresOwnedByPlayer(allSquaresInRow, player)
+    emptySquares = getEmptySquares(allSquaresInRow)
     if squaresOwnedByPlayer.count == 2
       if emptySquares.count == 1
         result = emptySquares[0]
@@ -28,7 +20,26 @@ class Heuristic
     end
     result
   end
-  def playerOwnsSquare(player, square)
-    @board.playerAt(square) == player 
+  def getSquaresInRow(rowNumber)
+    firstSquareInRow = rowNumber * 3 - 2
+    Array.new(3) { |i| firstSquareInRow + i }
+  end
+  def getSquaresOwnedByPlayer(squares, player)
+    result = Array.new
+    squares.each do |square|
+      if @board.playerOwnsSquare(player, square)
+        result.push(square)
+      end
+    end
+    result
+  end
+  def getEmptySquares(squares)
+    result = Array.new
+    squares.each do |square|
+      if @board.isEmpty(square)
+        result.push(square)
+      end
+    end
+    result
   end
 end

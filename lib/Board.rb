@@ -9,8 +9,8 @@ class Board
   def isEmpty(square)
     @squares[square].nil?
   end
-  def playerAt(square)
-    @squares[square]
+  def playerOwnsSquare(player, square)
+    @squares[square] == player
   end
 end
 

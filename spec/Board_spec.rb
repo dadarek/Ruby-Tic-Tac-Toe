@@ -12,8 +12,8 @@ describe Board, "#playerAt" do
     board.takeSquare(1, "x")
     board.takeSquare(2, "o")
 
-    board.playerAt(1).should eq("x")
-    board.playerAt(2).should eq("o")
-    board.playerAt(3).should be_nil
+    board.playerOwnsSquare("x", 1).should == true
+    board.playerOwnsSquare("o", 2).should == true
+    board.playerOwnsSquare("x", 3).should == false
   end
 end 
