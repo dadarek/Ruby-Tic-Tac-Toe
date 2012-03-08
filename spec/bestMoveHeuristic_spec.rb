@@ -10,7 +10,7 @@ describe BestMoveHeuristic do
     nextMoveShouldBe(5)
   end
   it "should play corner if center is taken" do
-    @board.take(5, "x")
+    takeCenter()
     nextMoveShouldBe(1)
   end
     
@@ -26,8 +26,24 @@ describe BestMoveHeuristic do
   it "should play opposite corner 3, if opponent took 7 and center is taken" do
     shouldTakeOppositeCorner(7, 3)
   end
-  def shouldTakeOppositeCorner(opponentsCorner, expectedMove)
+
+  it "should play 3 or 7, if 1, 9, and center are taken" do
+    takeCenter()
+    @board.take(1, "x")
+    @board.take(9, "o")
+    @heuristic.nextMove.should satisfy{ |move| move == 3 or move == 7 }
+  end
+  it "should play 1 or 9, if 3, 7, and center are taken" do
+    takeCenter()
+    @board.take(3, "x")
+    @board.take(7, "o")
+    @heuristic.nextMove.should satisfy{ |move| move == 1 or move == 9 }
+  end
+  def takeCenter()
     @board.take(5, "x")
+  end
+  def shouldTakeOppositeCorner(opponentsCorner, expectedMove)
+    takeCenter()
     @board.take(opponentsCorner, "o")
     nextMoveShouldBe(expectedMove)
   end
