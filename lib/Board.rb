@@ -21,5 +21,8 @@ class Board
   def getEmptySquares()
     (1..9).select{ |i| @squares[i].nil? }
   end
+  def getPlayerOn(square)
+    @squares[square]
+  end
 end
 
