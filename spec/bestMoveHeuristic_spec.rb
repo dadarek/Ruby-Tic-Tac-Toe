@@ -37,8 +37,27 @@ describe BestMoveHeuristic do
     takeCenter()
     @board.take(3, "x")
     @board.take(7, "o")
-    @heuristic.nextMove.should satisfy{ |move| move == 1 or move == 9 }
+    @heuristic.nextMove.should satisfy{ |move| [1, 9].include? move }
   end
+  it "should take empty side, if all corners and center are taken" do
+    takeCenter()
+    @board.take(1, "o")
+    @board.take(3, "x")
+    @board.take(7, "o")
+    @board.take(4, "x")
+    @board.take(9, "o")
+    @heuristic.nextMove.should satisfy{ |move| [2, 6, 8].include? move }
+  end
+  it "should take empty side, if all corners and center are taken" do
+    takeCenter()
+    @board.take(3, "o")
+    @board.take(9, "x")
+    @board.take(1, "o")
+    @board.take(2, "x")
+    @board.take(7, "o")
+    @heuristic.nextMove.should satisfy{ |move| [4, 6, 8].include? move }
+  end
+    
   def takeCenter()
     @board.take(5, "x")
   end

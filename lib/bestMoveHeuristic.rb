@@ -8,8 +8,10 @@ class BestMoveHeuristic
     result ||= takeIfEmpty(7) if opponentOwns(3)
     result ||= takeIfEmpty(9) if opponentOwns(1)
     result ||= takeIfEmpty(3) if opponentOwns(7)
-    result ||= takeIfEmpty(1)
-    result ||= takeIfEmpty(3)
+    result ||= takeFirstEmpty([1, 3, 7, 9, 2, 4, 6, 8])
+  end
+  def takeFirstEmpty(squares)
+    squares.detect { |i| @board.isEmpty(i) }
   end
   def takeIfEmpty(square)
     square if @board.isEmpty(square)
