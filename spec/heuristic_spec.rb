@@ -37,12 +37,4 @@ describe Heuristic do
 
     @heuristic.nextMove("x").should == 3
   end
-  it "forks when possible (2)" do
-    @board.take(9, "x")
-    @board.take(1, "o")
-    @board.take(3, "x")
-    @board.take(6, "o")
-
-    @heuristic.nextMove("x").should == 7
-  end
 end
