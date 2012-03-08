@@ -7,6 +7,7 @@ class BestMoveHeuristic
     result ||= takeIfEmpty(5)
     result ||= takeIfEmpty(7) if opponentOwns(3)
     result ||= takeIfEmpty(9) if opponentOwns(1)
+    result ||= takeIfEmpty(3) if opponentOwns(7)
     result ||= 1
   end
   def takeIfEmpty(square)
