@@ -9,33 +9,28 @@ class Heuristic
   def nextMove(player)
     result ||= getWinningMove(player)
     result ||= getBlockingMove(player)
+    result ||= tryFork(player)
+  end
+  def tryFork(player)
+    3
   end
   def getWinningMove(player)
     possibleWin = @@WINNING_ROWS.detect { |row| canWin(row, player) }
-    getEmptySquares(possibleWin)[0] unless possibleWin.nil?
+    (possibleWin & @board.getEmptySquares())[0] unless possibleWin.nil?
   end
   def getBlockingMove(player)
     possibleLoss = @@WINNING_ROWS.detect { |row| canLose(row, player) } 
-    getEmptySquares(possibleLoss)[0] unless possibleLoss.nil?
-  end
-  def getSquaresOwnedByPlayer(squares, player)
-    squares.select { |square| @board.playerOwnsSquare(player, square) }
-  end
-  def getSquaresOwnedByOpponent(squares, player)
-    squares.reject { |square| @board.isEmpty(square) or @board.playerOwnsSquare(player, square) }
-  end
-  def getEmptySquares(squares)
-    squares.select { |square| @board.isEmpty(square) }
+    (possibleLoss & @board.getEmptySquares())[0] unless possibleLoss.nil?
   end
   def canWin(row, player)
-    squaresOwnedByPlayer = getSquaresOwnedByPlayer(row, player)
-    emptySquares = getEmptySquares(row)
+    squaresOwnedByPlayer = row & @board.getPlayerSquares(player)
+    emptySquares = row & @board.getEmptySquares()
 
     squaresOwnedByPlayer.count == 2 and emptySquares.count == 1
   end
   def canLose(row, player)
-    squaresOwnedByOpponent = getSquaresOwnedByOpponent(row, player)
-    emptySquares = getEmptySquares(row)
+    squaresOwnedByOpponent = row & @board.getOpponentSquares(player)
+    emptySquares = row & @board.getEmptySquares()
     
     squaresOwnedByOpponent.count == 2 and emptySquares.count == 1
   end
