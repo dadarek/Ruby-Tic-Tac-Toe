@@ -4,13 +4,13 @@ class BestMoveHeuristic
     @player = player
   end
   def nextMove()
-    if @board.isEmpty(5) then
-      return 5
-    end
-    if opponentOwns(3) and @board.isEmpty(7) then
-      return 7
-    end
-    1
+    result ||= takeIfEmpty(5)
+    result ||= takeIfEmpty(7) if opponentOwns(3)
+    result ||= takeIfEmpty(9) if opponentOwns(1)
+    result ||= 1
+  end
+  def takeIfEmpty(square)
+    square if @board.isEmpty(square)
   end
   def opponentOwns(square)
     not @board.isEmpty(square) and @board.getPlayerOn(square) != @player
