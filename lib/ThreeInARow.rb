@@ -1,5 +1,6 @@
 class ThreeInARow
-  def initialize
+  def initialize(squares)
+    @squares = squares
     @isEmpty = true
     @squaresTaken = {}
   end
@@ -7,9 +8,11 @@ class ThreeInARow
     @isEmpty
   end
   def take(square, player)
-    @isEmpty = false
-    @squaresTaken[player] = 0 if @squaresTaken[player].nil?
-    @squaresTaken[player] += 1
+    if @squares.include? square then
+      @isEmpty = false
+      @squaresTaken[player] = 0 if @squaresTaken[player].nil?
+      @squaresTaken[player] += 1
+    end
   end
   def canPlayerWinWithOneMove(player)
     @squaresTaken[player] == 2 and @squaresTaken.length == 1

@@ -1,5 +1,5 @@
 class Board
-  def initialize()
+  def initialize
     @squares = {}
   end
   def take(square, player)
