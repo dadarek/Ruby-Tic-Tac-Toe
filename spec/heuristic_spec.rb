@@ -7,7 +7,7 @@ describe Heuristic do
     @heuristic = Heuristic.new(@board)
   end
 
-  it "take first winning row" do
+  it "takes first winning row" do
     @board.takeSquare(1, "x")
     @board.takeSquare(2, "x")
     @heuristic.nextMove("x").should == 3

@@ -12,36 +12,19 @@ class Heuristic
     result
   end
   def getWinningMove(player)
-    result = nil
-
-    @@WINNING_ROWS.each do |row|
-      squaresOwnedByPlayer = getSquaresOwnedByPlayer(row, player)
-      emptySquares = getEmptySquares(row)
-
-      if squaresOwnedByPlayer.count == 2
-        if emptySquares.count == 1
-          result ||= emptySquares[0]
-        end
-      end
-    end
-    result
+    possibleWin = @@WINNING_ROWS.detect { |row| canWin(row, player) }
+    getEmptySquares(possibleWin)[0] unless possibleWin.nil?
   end
   def getSquaresOwnedByPlayer(squares, player)
-    result = Array.new
-    squares.each do |square|
-      if @board.playerOwnsSquare(player, square)
-        result.push(square)
-      end
-    end
-    result
+    squares.select { |square| @board.playerOwnsSquare(player, square) }
   end
   def getEmptySquares(squares)
-    result = Array.new
-    squares.each do |square|
-      if @board.isEmpty(square)
-        result.push(square)
-      end
-    end
-    result
+    squares.select { |square| @board.isEmpty(square) }
+  end
+  def canWin(row, player)
+    squaresOwnedByPlayer = getSquaresOwnedByPlayer(row, player)
+    emptySquares = getEmptySquares(row)
+
+    squaresOwnedByPlayer.count == 2 and emptySquares.count == 1
   end
 end
