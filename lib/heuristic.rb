@@ -1,29 +1,30 @@
 class Heuristic
+	@@WINNING_ROWS = [  [1, 2, 3], [4, 5, 6], [7, 8, 9],
+											[1, 4, 7], [2, 5, 8], [3, 6, 9],
+											[1, 5, 9], [3, 5, 7] ]
+											
   def initialize(board)
     @board = board
   end
   def nextMove(player)
-    result ||= getLastOpenSquareInRow(player, 1)
-    result ||= getLastOpenSquareInRow(player, 2)
-    result ||= getLastOpenSquareInRow(player, 3)
+    result ||= getWinningMove(player)
     result
   end
-  def getLastOpenSquareInRow(player, rowNumber)
+  def getWinningMove(player)
     result = nil
-    allSquaresInRow = getSquaresInRow(rowNumber) 
-    squaresOwnedByPlayer = getSquaresOwnedByPlayer(allSquaresInRow, player)
-    emptySquares = getEmptySquares(allSquaresInRow)
-    if squaresOwnedByPlayer.count == 2
-      if emptySquares.count == 1
-        result = emptySquares[0]
-      end
-    end
-    result
-  end
-  def getSquaresInRow(rowNumber)
-    firstSquareInRow = rowNumber * 3 - 2
-    Array.new(3) { |i| firstSquareInRow + i }
-  end
+
+		@@WINNING_ROWS.each do |row|
+    	squaresOwnedByPlayer = getSquaresOwnedByPlayer(row, player)
+    	emptySquares = getEmptySquares(row)
+
+    	if squaresOwnedByPlayer.count == 2
+      	if emptySquares.count == 1
+      	  result ||= emptySquares[0]
+      	end
+    	end
+		end
+		result
+	end
   def getSquaresOwnedByPlayer(squares, player)
     result = Array.new
     squares.each do |square|
