@@ -2,11 +2,8 @@ class Board
   def initialize()
     @squares = {}
   end
-  def takeSquare(square, player)
-    @squares[square] = player
-  end
   def take(square, player)
-    takeSquare(square, player)
+    @squares[square] = player
   end
   def isEmpty(square)
     @squares[square].nil?
@@ -16,6 +13,10 @@ class Board
   end
   def getPlayerSquares(player)
     @squares.collect{ |key, value| key if value == player }.compact()
+  end
+  def getOpponentSquares(player)
+    allSquares = Array(1..9) 
+    allSquares - getEmptySquares() - getPlayerSquares(player)
   end
   def getEmptySquares()
     (1..9).select{ |i| @squares[i].nil? }

@@ -9,30 +9,37 @@ describe Board, "#playerAt" do
     (1..9).each{|i| @board.isEmpty(i).should == true }
   end
   it "remembers players squares" do
-    @board.take(1, "x")
-    @board.take(3, "x")
+    takeSquares("x", [1, 3])
 
     @board.getPlayerSquares("x").should == [1, 3]
   end
   it "remembers 2 players squares" do
-    @board.take(2, "x")
-    @board.take(5, "x")
-    @board.take(9, "x")
-    
-    @board.take(8, "o")
-    @board.take(1, "o")
+    takeSquares("x", [2, 5, 9])
+    takeSquares("o", [8, 1])
 
     @board.getPlayerSquares("x").sort.should == [2, 5, 9]
     @board.getPlayerSquares("o").sort.should == [1, 8]
   end
-
+  it "can determine opponent's squares" do
+    takeSquares("x", [1, 3, 5, 4])
+    @board.getOpponentSquares("o").sort.should == [1, 3, 4, 5]
+  end
+  it "can determine both opponents' squares" do
+    takeSquares("x", [7, 8])
+    takeSquares("o", [3, 5])
+    @board.getOpponentSquares("o").should == [7, 8]
+    @board.getOpponentSquares("x").should == [3, 5]
+  end
   it "knows its empty squares" do
-    @board.getEmptySquares().should == (1..9).to_a()
+    @board.getEmptySquares().should == Array(1..9)
   end
   it "removes empty squares after players take them" do
-    @board.take(5, "b")
-    @board.take(9, "c")
+    takeSquares("x", [5, 9])
 
     @board.getEmptySquares().should == [1, 2, 3, 4, 6, 7, 8]
+  end
+
+  def takeSquares(player, squares)
+    squares.each{ |square| @board.take(square, player) }
   end
 end 
