@@ -57,7 +57,20 @@ describe BestMoveHeuristic do
     @board.take(7, "o")
     @heuristic.nextMove.should satisfy{ |move| [4, 6, 8].include? move }
   end
-    
+
+  it "should block opponents fork (1, 9)" do
+    @board.take(1, "o")
+    takeCenter()
+    @board.take(9, "o")
+    @heuristic.nextMove.should satisfy{ |move| [2, 4, 6, 8].include? move }
+  end
+  it "should block opponents fork (3, 7)" do
+    @board.take(3, "o")
+    takeCenter()
+    @board.take(7, "o")
+    @heuristic.nextMove.should satisfy{ |move| [2, 4, 6, 8].include? move }
+  end
+
   def takeCenter()
     @board.take(5, "x")
   end

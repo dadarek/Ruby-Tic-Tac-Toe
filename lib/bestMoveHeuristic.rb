@@ -4,11 +4,16 @@ class BestMoveHeuristic
     @player = player
   end
   def nextMove()
+    result ||= blockFork()
     result ||= takeIfEmpty(5)
     result ||= takeIfEmpty(7) if opponentOwns(3)
     result ||= takeIfEmpty(9) if opponentOwns(1)
     result ||= takeIfEmpty(3) if opponentOwns(7)
     result ||= takeFirstEmpty([1, 3, 7, 9, 2, 4, 6, 8])
+  end
+  def blockFork()
+    takeIfEmpty(2) if (opponentOwns(1) and opponentOwns(9)) or
+      (opponentOwns(3) and opponentOwns(7))
   end
   def takeFirstEmpty(squares)
     squares.detect { |i| @board.isEmpty(i) }
