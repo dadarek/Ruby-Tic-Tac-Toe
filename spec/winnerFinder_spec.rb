@@ -11,37 +11,28 @@ describe WinnerFinder do
   end
 
   it "knows when there is no winner, even when squares are taken" do
-    @board.take(1, "x")
+    takeSquares([1], "x")
     winnerShouldBe(nil)
   end
 
   it "knows that there is no winner when the game is tie" do
-    @board.take(1, "x")
-    @board.take(3, "x")
-    @board.take(4, "x")
-    @board.take(6, "x")
-    @board.take(8, "x")
-    @board.take(2, "o")
-    @board.take(5, "o")
-    @board.take(7, "o")
-    @board.take(9, "o")
+    takeSquares([1, 3, 4, 6, 8], "x")
+    takeSquares([2, 5, 7, 9], "o")
     winnerShouldBe(nil)
   end  
 
   it "knows how to find winner" do
-    @board.take(5, "x")
-    @board.take(6, "x")
-    @board.take(4, "x")
-
+    takeSquares([4, 6, 5], "x")
     winnerShouldBe("x")
   end
 
   it "knows how to find a winner (other than x)" do
-    @board.take(1, "o")
-    @board.take(5, "o")
-    @board.take(9, "o")
-
+    takeSquares([1, 5, 9], "o")
     winnerShouldBe("o")
+  end
+
+  def takeSquares(squares, player)
+    squares.each{ |square| @board.take(square, player) }
   end
 
   def winnerShouldBe(winner)
