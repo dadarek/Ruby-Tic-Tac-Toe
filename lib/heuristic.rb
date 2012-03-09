@@ -10,15 +10,39 @@ class Heuristic
   end
 
   def nextMove()
+    result ||= firstMove
     result ||= findWinningMoveFor(@player)
     result ||= findWinningMoveFor(@opponent)
     result ||= tryFork()
     result ||= blockFork()
     result ||= centerIfEmpty
+    result ||= oppositeCornerIfAny
+    result ||= emptySide
+  end
+
+  def emptySide
+    (@board.getEmptySquares & [2, 4, 6, 8]).first
   end
 
   def centerIfEmpty
     5 if @board.isEmpty(5)
+  end
+
+  def oppositeCornerIfAny
+    result ||= getCornerIfOppositeAndOpen(1, 9)
+    result ||= getCornerIfOppositeAndOpen(9, 1)
+    result ||= getCornerIfOppositeAndOpen(7, 3)
+    result ||= getCornerIfOppositeAndOpen(3, 7)
+  end
+
+  def getCornerIfOppositeAndOpen(expectedEmpty, expectedOpponent)
+    isEmpty = @board.getEmptySquares.include? expectedEmpty
+    isOpponents = @board.getPlayerSquares(@opponent).include? expectedOpponent
+    expectedEmpty if isEmpty and isOpponents
+  end
+  
+  def firstMove
+    1 if @board.getEmptySquares.count == 9
   end
 
   def findWinningMoveFor(somePlayer)
