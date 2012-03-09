@@ -96,5 +96,6 @@ describe Heuristic do
     @board.take(7, "x")
     @heuristic.nextMove().should satisfy{ |square| [2, 8].include? square }
   end
+
 end
 
