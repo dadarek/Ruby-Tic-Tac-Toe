@@ -56,4 +56,10 @@ describe Heuristic do
 
     @heuristic.nextMove().should satisfy{ |square| [2, 4, 6, 8].include? square }
   end
+
+  it "takes the center if open" do
+    @board.take(9, "x")
+    @board.take(4, "o")
+    @heuristic.nextMove().should == 5
+  end
 end

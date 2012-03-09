@@ -14,6 +14,11 @@ class Heuristic
     result ||= findWinningMoveFor(@opponent)
     result ||= tryFork()
     result ||= blockFork()
+    result ||= centerIfEmpty
+  end
+
+  def centerIfEmpty
+    5 if @board.isEmpty(5)
   end
 
   def findWinningMoveFor(somePlayer)
@@ -50,7 +55,13 @@ class Heuristic
   end
 
   def blockFork()
-    2
+    opponentSquares = @board.getPlayerSquares(@opponent).sort
+    playerSquares = @board.getPlayerSquares(@player)
+    openEdges = [2, 4, 6, 8] & @board.getEmptySquares()
+    
+    opponentHasOppositeCorners = opponentSquares == [1, 9] or opponentSquares == [3, 7]
+    playerHasOnlyCenter = playerSquares == [5]
+    openEdges.first if opponentHasOppositeCorners and playerHasOnlyCenter
   end
 
 end
