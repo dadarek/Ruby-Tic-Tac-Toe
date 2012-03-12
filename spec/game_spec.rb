@@ -12,13 +12,13 @@ describe Game do
   end
 
   it "knows game is over when no squres are left" do
-    takeSquares(Array(1..9), "x")
+    takeSquares(Array(1..9), @p1)
     @game.isOver.should == true
   end
 
   it "listens to winner finder" do
     @game.isOver.should == false
-    @winnerFinder.setWinner("x")
+    @winnerFinder.setWinner(@p1)
     @game.isOver.should == true
   end
 
@@ -26,8 +26,8 @@ describe Game do
     @p1.setMoves([1, 3, 4, 6, 8])
     @p2.setMoves([2, 5, 7, 9])
     @game.go()
-    @board.getPlayerSquares("x").should =~ [1, 3, 4, 6, 8]
-    @board.getPlayerSquares("o").should =~ [2, 5, 7, 9]
+    @board.getPlayerSquares(@p1).should =~ [1, 3, 4, 6, 8]
+    @board.getPlayerSquares(@p2).should =~ [2, 5, 7, 9]
   end
 
   it "asks players for their moves - in order" do

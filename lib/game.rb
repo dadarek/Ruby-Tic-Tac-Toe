@@ -15,17 +15,10 @@ class Game
   end
 
   def go()
-    currentPlayer = nil
+    current_player = nil
     while not isOver do
-      if currentPlayer == @p1 then
-        currentPlayer = @p2
-        mark = "o"
-      else
-        currentPlayer = @p1
-        mark = "x"
-      end
-
-      @board.take(currentPlayer.nextMove, mark)
+      current_player = current_player == @p1 ? @p2 : @p1
+      @board.take(current_player.nextMove, current_player)
     end
   end
 
