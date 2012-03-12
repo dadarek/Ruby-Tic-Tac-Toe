@@ -3,30 +3,32 @@ require 'user_prompter'
 describe UserPrompter do
 
   it "asks human for name" do
-    prompter = UserPrompter.new
-    
-    stream = DummyStream.new
-    stream.ask_name
-    2.times{ stream.ask_for_square }
+    inStream = DummyIn.new
+    outStream = DummyOut.new
 
-    stream.times_asked_for_name.should == 1
-    stream.times_asked_for_square.should == 2
+    prompter = UserPrompter.new(inStream, outStream)
+
+    prompter.get_square.should == 12
+
+    inStream.square_read.should == true
+    outStream.prompted_for_square.should == true
+    
   end
 
-  class DummyStream
-    attr_accessor :times_asked_for_name, :times_asked_for_square
+  class DummyIn
+    attr_reader :square_read
 
-    def initialize
-      @times_asked_for_name = 0
-      self.times_asked_for_square = 0
+    def read_square
+      @square_read = true
+      12 
     end
+  end
 
-    def ask_name
-      @times_asked_for_name += 1
-    end
+  class DummyOut
+    attr_reader :prompted_for_square
 
-    def ask_for_square
-      self.times_asked_for_square += 1  
+    def prompt_for_square
+      @prompted_for_square = true
     end
   end
   
