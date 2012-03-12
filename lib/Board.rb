@@ -8,9 +8,6 @@ class Board
   def isEmpty(square)
     @squares[square].nil?
   end
-  def playerOwnsSquare(player, square)
-    @squares[square] == player
-  end
   def getPlayerSquares(player)
     @squares.collect{ |key, value| key if value == player }.compact()
   end
