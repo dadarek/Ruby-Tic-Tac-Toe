@@ -2,57 +2,65 @@ require 'user_prompter'
 
 describe UserPrompter do
 
+  before(:each) do
+    @inStream = DummyIn.new
+    @outStream = DummyOut.new
+    @prompter = UserPrompter.new(@inStream, @outStream)
+  end
+
   it "asks for square" do
-    inStream = DummyIn.new
-    outStream = DummyOut.new
-
-    prompter = UserPrompter.new(inStream, outStream)
-
-    inStream.read_square_responses = [2]
-    prompter.get_square.should == 2
-
-    inStream.times_square_read.should == 1
-    outStream.times_prompted_for_square.should == 1
-    
+    @inStream.read_square_responses = [2]
+    @prompter.get_square.should == 2
+    @outStream.times_prompted_for_square.should == 1
   end
 
   it "rejects invalid squares" do
-    inStream = DummyIn.new
-    outStream = DummyOut.new
+    @inStream.read_square_responses = [12, "hi", nil, 9]
+    @prompter.get_square.should == 9
+    @outStream.times_prompted_for_square.should == 4
+  end
 
-    prompter = UserPrompter.new(inStream, outStream)
+  it "asks to play again" do
+    @inStream.play_again_responses = [true, false]
+    @prompter.get_play_again.should == true
+    @prompter.get_play_again.should == false
+    @outStream.times_prompted_to_play_again.should == 2  
+  end
 
-    inStream.read_square_responses = [12, "hi", nil, 9]
-    prompter.get_square.should == 9
-
-    inStream.times_square_read.should == 4
-    outStream.times_prompted_for_square.should == 4
-    
+  it "rejects invalid 'play-agains'" do
+    @inStream.play_again_responses = [true, "hi", true, false]
+    @prompter.get_play_again.should == true
+    @prompter.get_play_again.should == true
+    @prompter.get_play_again.should == false
+    @outStream.times_prompted_to_play_again.should == 4  
   end
 
   class DummyIn
-    attr_reader :times_square_read
-    attr_writer :read_square_responses
-
-    def initialize
-      @times_square_read = 0
-    end
+    attr_writer :read_square_responses, :play_again_responses
 
     def read_square
-      @times_square_read += 1
       @read_square_responses.shift
+    end
+
+    def play_again
+      @play_again_responses.shift
     end
   end
 
   class DummyOut
-    attr_reader :times_prompted_for_square
+    attr_reader :times_prompted_for_square, :times_prompted_to_play_again
 
     def initialize
       @times_prompted_for_square = 0
+      @times_prompted_to_play_again = 0
     end
 
     def prompt_for_square
       @times_prompted_for_square += 1
+    end
+
+    def prompt_to_play_again
+      @times_prompted_to_play_again += 1
     end
   end
   

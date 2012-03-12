@@ -10,5 +10,12 @@ class UserPrompter
     return square if (1..9).include? square
     get_square
   end
-  
+
+  def get_play_again
+    @writer.prompt_to_play_again
+    play_again = @reader.play_again
+    return play_again if [true, false].include? play_again
+    get_play_again
+  end 
+
 end
