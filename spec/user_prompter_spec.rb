@@ -21,18 +21,18 @@ describe UserPrompter do
   end
 
   it "asks to play again" do
-    @inStream.play_again_responses = [true, false]
+    @inStream.play_again_responses = ['y', 'n']
     @prompter.get_play_again.should == true
     @prompter.get_play_again.should == false
     @outStream.times_prompted_to_play_again.should == 2  
   end
 
   it "rejects invalid 'play-agains'" do
-    @inStream.play_again_responses = [true, "hi", true, false]
+    @inStream.play_again_responses = ['y', nil, 'b', 'y', 'n']
     @prompter.get_play_again.should == true
     @prompter.get_play_again.should == true
     @prompter.get_play_again.should == false
-    @outStream.times_prompted_to_play_again.should == 4  
+    @outStream.times_prompted_to_play_again.should == 5  
   end
 
   class DummyIn
