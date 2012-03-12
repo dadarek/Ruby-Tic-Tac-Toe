@@ -49,7 +49,7 @@ describe Heuristic do
     @heuristic.nextMove().should == 9
   end
 
-  it "blocks fork when opponents first move is corner" do
+  it "blocks possible fork on second move" do
     @board.take(1, "o")
     @board.take(5, "x")
     @board.take(9, "o")
@@ -86,15 +86,52 @@ describe Heuristic do
     @heuristic.nextMove().should == 2
   end
 
-  it "makes a move when the game is almost over" do
+  it "takes the last square" do
+    @board.take(3, "x")
+    @board.take(4, "x")
+    @board.take(8, "x")
+    @board.take(9, "x")
+    @board.take(1, "o")
+    @board.take(5, "o")
+    @board.take(6, "o")
+    @board.take(7, "o")
+    @heuristic.nextMove().should == 2
+  end
+
+  it "takes the last square" do
+    @board.take(1, "x")
+    @board.take(2, "x")
+    @board.take(6, "x")
+    @board.take(7, "x")
     @board.take(3, "o")
     @board.take(4, "o")
     @board.take(5, "o")
     @board.take(9, "o")
+    @heuristic.nextMove().should == 8
+  end
+
+  it "takes the last square" do
     @board.take(1, "x")
+    @board.take(3, "x")
     @board.take(6, "x")
+    @board.take(8, "x")
+    @board.take(2, "o")
+    @board.take(5, "o")
+    @board.take(7, "o")
+    @board.take(9, "o")
+    @heuristic.nextMove().should == 4
+  end
+
+  it "takes the last square" do
+    @board.take(2, "x")
+    @board.take(4, "x")
     @board.take(7, "x")
-    @heuristic.nextMove().should satisfy{ |square| [2, 8].include? square }
+    @board.take(9, "x")
+    @board.take(1, "o")
+    @board.take(3, "o")
+    @board.take(5, "o")
+    @board.take(8, "o")
+    @heuristic.nextMove().should == 6
   end
 
 end

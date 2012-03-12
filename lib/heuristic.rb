@@ -21,7 +21,7 @@ class Heuristic
   end
 
   def emptySide
-    (@board.getEmptySquares & [2, 8]).first
+    (@board.getEmptySquares & [2, 4, 6, 8]).first
   end
 
   def centerIfEmpty
