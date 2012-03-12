@@ -23,12 +23,20 @@ describe Heuristic do
     take_x_o_and_assert([], [3, 7], 5)
   end
 
-  it "forks when possible (case 1)" do
+  it "forks when possible (1)" do
     take_x_o_and_assert([1, 7], [9, 4], 3)
   end
 
-  it "forks when possible (case 2)" do
+  it "forks when possible (2)" do
     take_x_o_and_assert([1, 3], [7, 2], 9)
+  end
+
+  it "forks when possible (3)" do
+    take_x_o_and_assert([7, 9], [3, 8], 1)
+  end
+
+  it "forks when possible (4)" do
+    take_x_o_and_assert([3, 9], [1, 6], 7)
   end
 
   it "blocks blocks two-corner fork (1)" do
