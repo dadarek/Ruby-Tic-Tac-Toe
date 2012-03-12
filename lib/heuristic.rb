@@ -77,23 +77,27 @@ class Heuristic
 
   def blockFork()
     result ||= blockOppositeCornersFork
-    result ||= blockOneEdgeOneCornerFork([6, 7], 8)
-    result ||= blockOneEdgeOneCornerFork([3, 4], 2)
-    result ||= blockOneEdgeOneCornerFork([2, 9], 6)
-    result ||= blockOneEdgeOneCornerFork([1, 8], 4)
+    result ||= blockOneEdgeOneCornerFork
   end
 
-  def blockOneEdgeOneCornerFork(opponentSquares, blockingSquare)
-    playerHasOnlyCenter = [5] == @board.getPlayerSquares(@player)
-    opponentHasEdgeCornerForkPossible = (opponentSquares & @board.getPlayerSquares(@opponent)) == opponentSquares
-    blockingSquare if playerHasOnlyCenter and opponentHasEdgeCornerForkPossible 
+  def blockOneEdgeOneCornerFork
+    result ||= takeSquareIfSetupIs([5], [6, 7], 8)
+    result ||= takeSquareIfSetupIs([5], [3, 4], 2)
+    result ||= takeSquareIfSetupIs([5], [2, 9], 6)
+    result ||= takeSquareIfSetupIs([5], [1, 8], 4)
   end
   
   def blockOppositeCornersFork
-    playerHasOnlyCenter = [5] == @board.getPlayerSquares(@player)
-    opponentSquares = @board.getPlayerSquares(@opponent).sort
-    opponentHasOppositeCorners = (opponentSquares == [1, 9] or opponentSquares == [3, 7])
-    2 if opponentHasOppositeCorners and playerHasOnlyCenter
+    result ||= takeSquareIfSetupIs([5], [1, 9], 2)
+    result ||= takeSquareIfSetupIs([5], [3, 7], 2)
+  end
+
+  def takeSquareIfSetupIs(player_squares, opponent_squares, square_to_take)
+    square_to_take if (ownsSquares(@player, player_squares) and ownsSquares(@opponent, opponent_squares))
+  end
+
+  def ownsSquares(player, squares)
+    (squares) == (squares & @board.getPlayerSquares(player))
   end
 
 end
