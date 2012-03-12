@@ -1,4 +1,4 @@
-require 'computerPlayer'
+require 'computer_player'
 
 describe ComputerPlayer do
   it "listens to the heuristic" do
@@ -17,6 +17,7 @@ describe ComputerPlayer do
     def initialize
       @movesInOrder = [5, 7, 2, 9, 8]
     end
+    
     def nextMove
       @movesInOrder.pop
     end
