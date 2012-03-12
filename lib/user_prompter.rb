@@ -1,12 +1,14 @@
 class UserPrompter
-  def initialize(in_stream, out_stream)
-    @in_stream = in_stream
-    @out_stream = out_stream
+  def initialize(reader, writer)
+    @reader = reader
+    @writer = writer
   end
 
   def get_square
-    @out_stream.prompt_for_square
-    @in_stream.read_square
+    @writer.prompt_for_square
+    square = @reader.read_square
+    return square if (1..9).include? square
+    get_square
   end
   
 end
