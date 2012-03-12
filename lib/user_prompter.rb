@@ -19,4 +19,32 @@ class UserPrompter
     get_play_again
   end 
 
+  class DefaultReader
+    def initialize(in_stream=$stdin)
+      @in_stream = in_stream
+    end
+
+    def reader_square
+      @in_stream.gets
+    end
+
+    def play_again
+      @in_stream.gets
+    end
+  end
+
+  class DefaultWriter
+    def initialize(out_stream=$stdout)
+      @out_stream = out_stream
+    end
+    
+    def prompt_for_square
+      @out_stream.puts "Select a square (1-9)"
+    end
+    
+    def prompt_to_play_again
+      @out_stream.puts "Play again (y/n)?"
+    end
+  end
+
 end
