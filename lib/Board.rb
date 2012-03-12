@@ -14,15 +14,8 @@ class Board
   def getPlayerSquares(player)
     @squares.collect{ |key, value| key if value == player }.compact()
   end
-  def getOpponentSquares(player)
-    allSquares = Array(1..9) 
-    allSquares - getEmptySquares() - getPlayerSquares(player)
-  end
   def getEmptySquares()
     (1..9).select{ |i| @squares[i].nil? }
-  end
-  def getPlayerOn(square)
-    @squares[square]
   end
 end
 
