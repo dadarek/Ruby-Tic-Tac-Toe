@@ -76,13 +76,24 @@ class Heuristic
   end
 
   def blockFork()
+    result ||= blockOppositeCornersFork
+    result ||= blockOneEdgeOneCornerFork([6, 7], 8)
+    result ||= blockOneEdgeOneCornerFork([3, 4], 2)
+    result ||= blockOneEdgeOneCornerFork([2, 9], 6)
+    result ||= blockOneEdgeOneCornerFork([1, 8], 4)
+  end
+
+  def blockOneEdgeOneCornerFork(opponentSquares, blockingSquare)
+    playerHasOnlyCenter = [5] == @board.getPlayerSquares(@player)
+    opponentHasEdgeCornerForkPossible = (opponentSquares & @board.getPlayerSquares(@opponent)) == opponentSquares
+    blockingSquare if playerHasOnlyCenter and opponentHasEdgeCornerForkPossible 
+  end
+  
+  def blockOppositeCornersFork
+    playerHasOnlyCenter = [5] == @board.getPlayerSquares(@player)
     opponentSquares = @board.getPlayerSquares(@opponent).sort
-    playerSquares = @board.getPlayerSquares(@player)
-    openEdges = [2, 4, 6, 8] & @board.getEmptySquares()
-    
-    opponentHasOppositeCorners = opponentSquares == [1, 9] or opponentSquares == [3, 7]
-    playerHasOnlyCenter = playerSquares == [5]
-    openEdges.first if opponentHasOppositeCorners
+    opponentHasOppositeCorners = (opponentSquares == [1, 9] or opponentSquares == [3, 7])
+    2 if opponentHasOppositeCorners and playerHasOnlyCenter
   end
 
 end

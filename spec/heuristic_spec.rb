@@ -31,12 +31,28 @@ describe Heuristic do
     take_x_o_and_assert([1, 3], [7, 2], 9)
   end
 
-  it "blocks possible fork on second move" do
+  it "blocks blocks two-corner fork (1)" do
     take_x_o_and_satisfy([5], [1, 9], [2, 4, 6, 8])
   end
 
-  it "blocks fork when opponents first move is edge" do
-    take_x_o_and_satisfy([5], [8, 1], [4, 7, 9])
+  it "blocks blocks two-corner fork (2)" do
+    take_x_o_and_satisfy([5], [3, 7], [2, 4, 6, 8])
+  end
+
+  it "blocks one-edge one-corner fork (1)" do
+    take_x_o_and_assert([5], [8, 1], 4)
+  end
+
+  it "blocks one-edge one-corner fork (2)" do
+    take_x_o_and_assert([5], [2, 9], 6)
+  end
+
+  it "blocks one-edge one-corner fork (3)" do
+    take_x_o_and_assert([5], [6, 7], 8)
+  end
+
+  it "blocks one-edge one-corner fork (4)" do
+    take_x_o_and_assert([5], [3, 4], 2)
   end
 
   it "takes the center if open" do
