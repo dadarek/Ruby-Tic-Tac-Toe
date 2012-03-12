@@ -32,16 +32,11 @@ describe Heuristic do
   end
 
   it "blocks possible fork on second move" do
-    take([1, 9], "o")
-    @board.take(5, "x")
-
-    @heuristic.nextMove().should satisfy{ |square| [2, 4, 6, 8].include? square }
+    take_x_o_and_satisfy([5], [1, 9], [2, 4, 6, 8])
   end
 
   it "blocks fork when opponents first move is edge" do
-    take([8, 1], "o")
-    @board.take(5, "x")
-    @heuristic.nextMove().should satisfy{ |square| [4, 7, 9].include? square }
+    take_x_o_and_satisfy([5], [8, 1], [4, 7, 9])
   end
 
   it "takes the center if open" do
@@ -49,7 +44,7 @@ describe Heuristic do
   end
 
   it "makes the correct first move (any corner)" do
-    @heuristic.nextMove().should satisfy{ |square| [1,3,7,9].include? square }
+    take_x_o_and_satisfy([], [], [1, 3, 7, 9])
   end
 
   it "takes the last square (2)" do
@@ -72,6 +67,12 @@ describe Heuristic do
     take(x_squares, "x")
     take(o_squares, "o")
     @heuristic.nextMove.should == expectedMove
+  end
+
+  def take_x_o_and_satisfy(x_squares, o_squares, possibleSquares)
+    take(x_squares, "x")
+    take(o_squares, "o")
+    @heuristic.nextMove().should satisfy{ |square| possibleSquares.include? square }
   end
 
   def take(squares, player)
