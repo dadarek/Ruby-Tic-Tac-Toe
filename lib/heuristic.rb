@@ -21,7 +21,7 @@ class Heuristic
   end
 
   def emptySide
-    (@board.getEmptySquares & [2, 4, 6, 8]).first
+    (@board.getEmptySquares & [2, 8]).first
   end
 
   def centerIfEmpty
@@ -31,14 +31,11 @@ class Heuristic
   def oppositeCornerIfAny
     result ||= getCornerIfOppositeAndOpen(1, 9)
     result ||= getCornerIfOppositeAndOpen(9, 1)
-    result ||= getCornerIfOppositeAndOpen(7, 3)
-    result ||= getCornerIfOppositeAndOpen(3, 7)
   end
 
   def getCornerIfOppositeAndOpen(expectedEmpty, expectedOpponent)
     isEmpty = @board.getEmptySquares.include? expectedEmpty
-    isOpponents = @board.getPlayerSquares(@opponent).include? expectedOpponent
-    expectedEmpty if isEmpty and isOpponents
+    expectedEmpty if isEmpty
   end
   
   def firstMove
@@ -85,7 +82,7 @@ class Heuristic
     
     opponentHasOppositeCorners = opponentSquares == [1, 9] or opponentSquares == [3, 7]
     playerHasOnlyCenter = playerSquares == [5]
-    openEdges.first if opponentHasOppositeCorners and playerHasOnlyCenter
+    openEdges.first if opponentHasOppositeCorners
   end
 
 end

@@ -6,6 +6,7 @@ describe Game do
     @winnerFinder = DummyWinnerFinder.new
     @game = Game.new(@board, @winnerFinder)
   end
+
   it "knows game is over when no squres are left" do
     takeSquares(Array(1..9), "x")
     @game.isOver.should == true
