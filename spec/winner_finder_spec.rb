@@ -1,4 +1,4 @@
-require 'winnerFinder'
+require 'winner_finder'
 
 describe WinnerFinder do
   before(:each) do
