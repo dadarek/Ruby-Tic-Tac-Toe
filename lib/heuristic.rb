@@ -39,7 +39,7 @@ class Heuristic
   end
   
   def firstMove
-    1 if @board.getEmptySquares.count == 9
+    takeSquareIfSetupIs([], [], 1)
   end
 
   def findWinningMoveFor(somePlayer)
@@ -97,7 +97,8 @@ class Heuristic
   end
 
   def ownsSquares(player, squares)
-    (squares) == (squares & @board.getPlayerSquares(player))
+    playerSquares = @board.getPlayerSquares(player)
+    squares.sort == playerSquares.sort
   end
 
 end
