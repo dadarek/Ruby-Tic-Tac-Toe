@@ -79,6 +79,22 @@ describe Heuristic do
     take_x_o_and_assert([2, 4, 7, 9], [1, 3, 5, 8], 6)
   end
 
+  it "takes the last square (1)" do
+    take_x_o_and_assert([3, 4, 5, 8], [2, 6, 7, 9], 1)
+  end
+
+  it "takes the last square (3)" do
+    take_x_o_and_assert([2, 4, 5, 9], [1, 6, 7, 8], 3)
+  end
+
+  it "takes the last square (7)" do
+    take_x_o_and_assert([1, 5, 6, 8], [2, 3, 4, 9], 7)
+  end
+
+  it "takes the last square (9)" do
+    take_x_o_and_assert([2, 5, 6, 7], [1, 3, 4, 8], 9)
+  end
+
   def take_x_o_and_assert(x_squares, o_squares, expectedMove)
     take(x_squares, "x")
     take(o_squares, "o")

@@ -14,7 +14,8 @@ class Heuristic
     result ||= findWinningMoveFor(@player)
     result ||= findWinningMoveFor(@opponent)
     result ||= tryFork()
-    result ||= blockFork()
+    result ||= blockOppositeCornersFork
+    result ||= blockOneEdgeOneCornerFork
     result ||= centerIfEmpty
     result ||= oppositeCornerIfAny
     result ||= emptySide
@@ -29,13 +30,14 @@ class Heuristic
   end
 
   def oppositeCornerIfAny
-    result ||= getCornerIfOppositeAndOpen(1, 9)
-    result ||= getCornerIfOppositeAndOpen(9, 1)
+    result ||= takeSquareIfOpponentOwns(7, 3)
+    result ||= takeSquareIfOpponentOwns(9, 1)
+    result ||= takeSquareIfOpponentOwns(3, 7)
+    result ||= takeSquareIfOpponentOwns(1, 9)
   end
 
-  def getCornerIfOppositeAndOpen(expectedEmpty, expectedOpponent)
-    isEmpty = @board.getEmptySquares.include? expectedEmpty
-    expectedEmpty if isEmpty
+  def takeSquareIfOpponentOwns(opponent_square, square_to_take)
+    square_to_take if (@board.playerOwnsSquare(@opponent, opponent_square) and @board.isEmpty(square_to_take))
   end
   
   def firstMove
@@ -73,11 +75,6 @@ class Heuristic
     
     occurences.delete_if{ |square, count| count < 2 }
     occurences.keys
-  end
-
-  def blockFork()
-    result ||= blockOppositeCornersFork
-    result ||= blockOneEdgeOneCornerFork
   end
 
   def blockOneEdgeOneCornerFork
