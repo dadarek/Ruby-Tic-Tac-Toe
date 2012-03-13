@@ -6,7 +6,8 @@ describe Game do
     @p2 = DummyPlayer.new
     @board = Board.new
     @winnerFinder = DummyWinnerFinder.new
-    @game = Game.new(@board, @winnerFinder, @p1, @p2)
+    @boardPrinter = DummyPrinter.new
+    @game = Game.new(@board, @winnerFinder, @boardPrinter, @p1, @p2)
 
     DummyPlayer.resetCounter
   end
@@ -37,6 +38,15 @@ describe Game do
 
     @p1.orderCalled.should == [1, 3, 5, 7, 9]
     @p2.orderCalled.should == [2, 4, 6, 8]
+  end
+
+  it "prints the board after each turn" do
+    @p1.setMoves([1, 3, 4, 6, 8])
+    @p2.setMoves([2, 5, 7, 9])
+    @game.go()
+
+    @boardPrinter.times_board_printed.should == 9
+
   end
 
   def takeSquares(squares, player)
@@ -73,6 +83,18 @@ describe Game do
 
     def orderCalled
       @orderCalled
+    end
+  end
+
+  class DummyPrinter
+    attr_accessor :times_board_printed
+
+    def initialize
+      @times_board_printed = 0
+    end
+
+    def print(board)
+      @times_board_printed += 1
     end
   end
 

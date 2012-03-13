@@ -1,7 +1,8 @@
 class Game
-  def initialize(board, winnerFinder, p1, p2)
+  def initialize(board, winnerFinder, boardPrinter, p1, p2)
     @board = board  
     @winnerFinder = winnerFinder
+    @boardPrinter = boardPrinter
     @p1 = p1
     @p2 = p2
   end
@@ -19,6 +20,7 @@ class Game
     while not isOver do
       current_player = current_player == @p1 ? @p2 : @p1
       @board.take(current_player.nextMove, current_player)
+      @boardPrinter.print(@board)
     end
   end
 
