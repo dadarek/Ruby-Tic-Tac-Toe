@@ -1,26 +1,30 @@
 require 'stream_board_printer'
 
 describe StreamBoardPrinter do
-  it "prints an empty grid" do
-    stream = DummyStream.new
-    printer = StreamBoardPrinter.new(stream)
-    board = Board.new("x", "o")
-    printer.print(board)
+  before(:each) do
+    @stream = DummyStream.new
+    @printer = StreamBoardPrinter.new(@stream)
+    @board = Board.new("x", "o")
+  end
+    
 
-    stream.what_printed.should == " | | \n | | \n | | \n"
+  it "prints an empty grid" do
+    @printer.print(@board)
+    @stream.what_printed.should == " | | \n | | \n | | \n"
   end
 
   it "prints a somewhat-filled grid" do
-    stream = DummyStream.new
-    printer = StreamBoardPrinter.new(stream)
-    board = Board.new("x", "o")
-    board.take(1, "x")
-    board.take(2, "o")
-    board.take(5, "x")
-    board.take(9, "o")
-    printer.print(board)
+    @board.take(1, "x")
+    @board.take(2, "o")
+    @board.take(5, "x")
+    @board.take(9, "o")
+    @printer.print(@board)
 
-    stream.what_printed.should == "x|o| \n |x| \n | |o\n"
+    @stream.what_printed.should == "x|o| \n |x| \n | |o\n"
+  end
+
+  it "has a default stream" do
+    StreamBoardPrinter.new
   end
 
   class DummyStream

@@ -1,5 +1,5 @@
 class StreamBoardPrinter
-  def initialize(stream)
+  def initialize(stream=$stdout)
     @stream = stream
   end
 

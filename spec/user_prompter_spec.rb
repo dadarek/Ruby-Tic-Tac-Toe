@@ -39,6 +39,16 @@ describe UserPrompter do
     @outStream.times_prompted_to_play_again.should == 5  
   end
 
+  it "ignores trailing whitespaces" do
+    @inStream.read_square_responses = [" 1 \n ", "   3\n"]
+    @prompter.get_square.should == 1
+    @prompter.get_square.should == 3
+    
+    @inStream.play_again_responses = ["  y \n", "n\n"]
+    @prompter.get_play_again.should == true
+    @prompter.get_play_again.should == false
+  end
+
   class DummyIn
     attr_writer :read_square_responses, :play_again_responses
 
