@@ -33,7 +33,7 @@ describe StreamBoardPrinter do
       @what_printed = ""
     end
 
-    def puts(s)
+    def printf(s)
       @what_printed << s 
     end
   end

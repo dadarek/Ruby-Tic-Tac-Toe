@@ -8,8 +8,8 @@ class StreamBoardPrinter
       square = i + 1
       symbol = getSymbol(board, square)
       separator = getSeparator(square)
-      @stream.puts(symbol)
-      @stream.puts(separator)
+      @stream.printf symbol
+      @stream.printf separator
     }
   end
   def getSeparator(square)
