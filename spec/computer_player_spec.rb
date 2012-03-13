@@ -4,7 +4,8 @@ describe ComputerPlayer do
   it "listens to the heuristic" do
     
     heuristic = DummyHeuristic.new
-    computer = ComputerPlayer.new(heuristic)
+    computer = ComputerPlayer.new
+    computer.set_heuristic(heuristic)
 
     computer.nextMove.should == 8
     computer.nextMove.should == 9 

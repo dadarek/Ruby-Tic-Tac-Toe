@@ -1,5 +1,5 @@
 class UserPrompter
-  def initialize(reader, writer)
+  def initialize(reader=DefaultReader.new, writer=DefaultWriter.new)
     @reader = reader
     @writer = writer
   end

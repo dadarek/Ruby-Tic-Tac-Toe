@@ -8,6 +8,10 @@ describe UserPrompter do
     @prompter = UserPrompter.new(@inStream, @outStream)
   end
 
+  it "has default constructor arguments" do
+    somePrompter = UserPrompter.new
+  end
+
   it "asks for square" do
     @inStream.read_square_responses = [2]
     @prompter.get_square.should == 2

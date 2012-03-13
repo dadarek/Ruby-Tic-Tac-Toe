@@ -1,5 +1,5 @@
 class ComputerPlayer
-  def initialize(heuristic)
+  def set_heuristic(heuristic)
     @heuristic = heuristic
   end
   
