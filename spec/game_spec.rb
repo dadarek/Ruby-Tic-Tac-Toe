@@ -39,6 +39,14 @@ describe Game do
     @boardPrinter.tie_printed.should == true
   end
 
+  it "prints next turn" do
+    @p1.setMoves [1, 3, 4, 6, 8]
+    @p2.setMoves [2, 5, 7, 9]
+    @game.go
+ 
+    @boardPrinter.times_next_turn_printed.should == 9
+  end
+
   it "asks players for their moves" do
     @p1.setMoves [1, 3, 4, 6, 8]
     @p2.setMoves [2, 5, 7, 9]
@@ -48,8 +56,8 @@ describe Game do
   end
 
   it "asks players for their moves - in order" do
-    @p1.setMoves([1, 3, 4, 6, 8])
-    @p2.setMoves([2, 5, 7, 9])
+    @p1.setMoves [1, 3, 4, 6, 8]
+    @p2.setMoves [2, 5, 7, 9]
     @game.go()
 
     @p1.orderCalled.should == [1, 3, 5, 7, 9]
@@ -57,9 +65,9 @@ describe Game do
   end
 
   it "prints the board after each turn" do
-    @p1.setMoves([1, 3, 4, 6, 8])
-    @p2.setMoves([2, 5, 7, 9])
-    @game.go()
+    @p1.setMoves [1, 3, 4, 6, 8]
+    @p2.setMoves [2, 5, 7, 9]
+    @game.go
 
     @boardPrinter.times_board_printed.should == 9
 
@@ -103,10 +111,11 @@ describe Game do
   end
 
   class DummyPrinter
-    attr_accessor :times_board_printed, :winner_printed, :tie_printed
+    attr_accessor :times_board_printed, :winner_printed, :tie_printed, :times_next_turn_printed
 
     def initialize
       @times_board_printed = 0
+      @times_next_turn_printed = 0
     end
 
     def print(board)
@@ -120,6 +129,10 @@ describe Game do
     def print_tie
       @tie_printed = true
     end
+
+    def print_next_turn(player)
+      @times_next_turn_printed += 1
+    end 
   end
 
 end

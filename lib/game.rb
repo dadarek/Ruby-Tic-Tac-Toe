@@ -19,7 +19,9 @@ class Game
     current_player = nil
     while not isOver do
       current_player = current_player == @p1 ? @p2 : @p1
-      @board.take(current_player.nextMove, current_player)
+      @boardPrinter.print_next_turn current_player
+      next_move = current_player.nextMove
+      @board.take(next_move, current_player)
       @boardPrinter.print(@board)
     end
 
