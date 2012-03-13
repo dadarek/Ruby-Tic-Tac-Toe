@@ -12,6 +12,11 @@ class StreamBoardPrinter
       @stream.printf separator
     }
   end
+  
+  def print_winner(player)
+    @stream.printf player.to_s << " won!"
+  end
+
   def getSeparator(square)
     square % 3 == 0 ? "\n" : "|"
   end

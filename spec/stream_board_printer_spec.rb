@@ -23,6 +23,11 @@ describe StreamBoardPrinter do
     @stream.what_printed.should == "x|o| \n |x| \n | |o\n"
   end
 
+  it "prints the winner" do
+    @printer.print_winner("x")
+    @stream.what_printed.should == "x won!"
+  end
+
   it "has a default stream" do
     StreamBoardPrinter.new
   end

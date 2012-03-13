@@ -23,6 +23,12 @@ describe Game do
     @game.isOver.should == true
   end
 
+  it "prints the winner" do
+    @winnerFinder.setWinner "Darek"
+    @game.go()
+    @boardPrinter.winner_printed.should == "Darek"
+  end
+
   it "asks players for their moves" do
     @p1.setMoves([1, 3, 4, 6, 8])
     @p2.setMoves([2, 5, 7, 9])
@@ -87,7 +93,7 @@ describe Game do
   end
 
   class DummyPrinter
-    attr_accessor :times_board_printed
+    attr_accessor :times_board_printed, :winner_printed
 
     def initialize
       @times_board_printed = 0
@@ -95,6 +101,10 @@ describe Game do
 
     def print(board)
       @times_board_printed += 1
+    end
+    
+    def print_winner(player)
+      @winner_printed = player
     end
   end
 

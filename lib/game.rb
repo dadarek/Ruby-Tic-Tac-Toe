@@ -22,6 +22,9 @@ class Game
       @board.take(current_player.nextMove, current_player)
       @boardPrinter.print(@board)
     end
+
+    winner = @winnerFinder.winner
+    @boardPrinter.print_winner winner unless winner.nil?
   end
 
 end
