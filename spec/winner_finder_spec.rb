@@ -31,6 +31,13 @@ describe WinnerFinder do
     winnerShouldBe("o")
   end
 
+  it "works with objects other than string literals x and o" do
+    @board = Board.new({}, [])
+    @finder = WinnerFinder.new(@board)
+    takeSquares([7, 8, 9], {})
+    winnerShouldBe({})
+  end
+
   def takeSquares(squares, player)
     squares.each{ |square| @board.take(square, player) }
   end

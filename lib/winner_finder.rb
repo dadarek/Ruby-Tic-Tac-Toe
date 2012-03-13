@@ -7,7 +7,7 @@ class WinnerFinder
   end
 
   def winner()
-    checkIfWinner("x") or checkIfWinner("o")
+    checkIfWinner(@board.p1) or checkIfWinner(@board.p2)
   end
 
   def checkIfWinner(player)
