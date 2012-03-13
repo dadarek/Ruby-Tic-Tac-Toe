@@ -13,6 +13,10 @@ describe HumanPlayer do
     @player.nextMove.should == 1 
   end
 
+  it "has a name" do
+    @player.to_s.should == "You!"
+  end
+
   class DummyPrompter
     attr_accessor :moves
 

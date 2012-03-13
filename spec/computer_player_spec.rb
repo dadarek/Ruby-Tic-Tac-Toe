@@ -14,6 +14,11 @@ describe ComputerPlayer do
     computer.nextMove.should == 5 
   end
 
+  it "has a name!" do
+    computer = ComputerPlayer.new
+    computer.to_s.should == "Computer"
+  end
+
   class DummyHeuristic
     def initialize
       @movesInOrder = [5, 7, 2, 9, 8]

@@ -6,4 +6,8 @@ class ComputerPlayer
   def nextMove
     @heuristic.nextMove
   end
+
+  def to_s
+    "Computer"
+  end
 end
