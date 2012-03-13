@@ -2,7 +2,7 @@ require 'board'
 
 describe Board, "#playerAt" do
   before(:each) do
-    @board = Board.new
+    @board = Board.new("x", "o")
   end
 
   it "has empty squares" do

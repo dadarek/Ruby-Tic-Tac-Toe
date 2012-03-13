@@ -2,7 +2,7 @@ require 'winner_finder'
 
 describe WinnerFinder do
   before(:each) do
-    @board = Board.new
+    @board = Board.new("x", "o")
     @finder = WinnerFinder.new(@board)
   end
 

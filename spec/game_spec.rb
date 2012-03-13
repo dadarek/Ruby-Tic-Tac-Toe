@@ -4,7 +4,7 @@ describe Game do
   before(:each) do
     @p1 = DummyPlayer.new
     @p2 = DummyPlayer.new
-    @board = Board.new
+    @board = Board.new(@p1, @p2)
     @winnerFinder = DummyWinnerFinder.new
     @boardPrinter = DummyPrinter.new
     @game = Game.new(@board, @winnerFinder, @boardPrinter, @p1, @p2)

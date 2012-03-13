@@ -3,7 +3,7 @@ require 'board'
 
 describe Heuristic do
   before(:each) do
-    @board = Board.new
+    @board = Board.new("x", "o")
     @heuristic = Heuristic.new(@board, "x", "o")
   end
 
