@@ -33,6 +33,11 @@ describe StreamBoardPrinter do
     @stream.what_printed.should == "You tied!\n"
   end
 
+  it "prints next turn" do
+    @printer.print_next_turn "Eric"
+    @stream.what_printed.should == "Eric's turn next\n"
+  end
+
   it "has a default stream" do
     StreamBoardPrinter.new
   end

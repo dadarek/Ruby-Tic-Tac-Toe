@@ -21,6 +21,10 @@ class StreamBoardPrinter
     @stream.printf "You tied!\n"
   end
 
+  def print_next_turn(player)
+    @stream.printf "#{player}'s turn next\n"
+  end
+
   def getSeparator(square)
     square % 3 == 0 ? "\n" : "|"
   end
