@@ -14,7 +14,11 @@ class StreamBoardPrinter
   end
   
   def print_winner(player)
-    @stream.printf player.to_s << " won!"
+    @stream.printf player.to_s << " won!\n"
+  end
+
+  def print_tie
+    @stream.printf "You tied!\n"
   end
 
   def getSeparator(square)

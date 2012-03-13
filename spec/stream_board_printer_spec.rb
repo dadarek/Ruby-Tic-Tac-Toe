@@ -25,7 +25,12 @@ describe StreamBoardPrinter do
 
   it "prints the winner" do
     @printer.print_winner("x")
-    @stream.what_printed.should == "x won!"
+    @stream.what_printed.should == "x won!\n"
+  end
+  
+  it "prints a tie" do
+    @printer.print_tie
+    @stream.what_printed.should == "You tied!\n"
   end
 
   it "has a default stream" do

@@ -24,7 +24,7 @@ class Game
     end
 
     winner = @winnerFinder.winner
-    @boardPrinter.print_winner winner unless winner.nil?
+    winner.nil? ? @boardPrinter.print_tie : @boardPrinter.print_winner(winner)
   end
 
 end

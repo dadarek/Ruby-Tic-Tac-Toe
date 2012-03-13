@@ -8,6 +8,6 @@ class HumanPlayer
   end
 
   def to_s
-    "You!"
+    "You"
   end
 end

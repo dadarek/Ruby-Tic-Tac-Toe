@@ -14,7 +14,7 @@ describe HumanPlayer do
   end
 
   it "has a name" do
-    @player.to_s.should == "You!"
+    @player.to_s.should == "You"
   end
 
   class DummyPrompter

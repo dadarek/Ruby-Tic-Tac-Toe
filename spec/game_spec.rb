@@ -27,11 +27,21 @@ describe Game do
     @winnerFinder.setWinner "Darek"
     @game.go()
     @boardPrinter.winner_printed.should == "Darek"
+    @boardPrinter.tie_printed.should == nil
+  end
+
+  it "prints a tie" do
+    @p1.setMoves [1, 3, 4, 6, 8]
+    @p2.setMoves [2, 5, 7, 9]
+    @game.go()
+
+    @boardPrinter.winner_printed.should == nil
+    @boardPrinter.tie_printed.should == true
   end
 
   it "asks players for their moves" do
-    @p1.setMoves([1, 3, 4, 6, 8])
-    @p2.setMoves([2, 5, 7, 9])
+    @p1.setMoves [1, 3, 4, 6, 8]
+    @p2.setMoves [2, 5, 7, 9]
     @game.go()
     @board.getPlayerSquares(@p1).should =~ [1, 3, 4, 6, 8]
     @board.getPlayerSquares(@p2).should =~ [2, 5, 7, 9]
@@ -93,7 +103,7 @@ describe Game do
   end
 
   class DummyPrinter
-    attr_accessor :times_board_printed, :winner_printed
+    attr_accessor :times_board_printed, :winner_printed, :tie_printed
 
     def initialize
       @times_board_printed = 0
@@ -105,6 +115,10 @@ describe Game do
     
     def print_winner(player)
       @winner_printed = player
+    end
+ 
+    def print_tie
+      @tie_printed = true
     end
   end
 
