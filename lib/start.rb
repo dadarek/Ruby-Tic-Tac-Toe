@@ -3,10 +3,12 @@ require_relative 'board'
 require_relative 'heuristic'
 require_relative 'user_prompter'
 require_relative 'computer_player'
+require_relative 'human_player'
 require_relative 'winner_finder'
 
 board = Board.new
-p1 = UserPrompter.new
+prompter = UserPrompter.new
+p1 = HumanPlayer.new(prompter)
 p2 = ComputerPlayer.new
 winner_finder = WinnerFinder.new(board)
 game = Game.new(board, winner_finder, p1, p2)

@@ -24,7 +24,7 @@ class UserPrompter
       @in_stream = in_stream
     end
 
-    def reader_square
+    def read_square
       @in_stream.gets
     end
 
