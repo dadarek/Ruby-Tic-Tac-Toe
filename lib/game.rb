@@ -13,7 +13,7 @@ class Game
     @board.get_empty_squares.count == 0
   end
 
-  def go
+  def play
     @ui.refresh @board
     
     play_game
