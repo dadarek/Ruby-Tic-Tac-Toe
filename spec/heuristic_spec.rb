@@ -107,6 +107,14 @@ describe Heuristic do
     take_x_o_and_satisfy([], [5], [1, 3, 7, 9])
   end
 
+  it "takes empty corner on 2nd move when no opposite corner exists (1)" do
+    take_x_o_and_satisfy([1], [5, 9], [3, 7])
+  end
+
+  it "takes empty corner on 2nd move when no opposite corner exists (2)" do
+    take_x_o_and_satisfy([3], [5, 7], [1, 9])
+  end
+
   def take_x_o_and_assert(x_squares, o_squares, expected_move)
     take(x_squares, "x")
     take(o_squares, "o")

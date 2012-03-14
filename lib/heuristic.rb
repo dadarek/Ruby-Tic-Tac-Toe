@@ -25,7 +25,7 @@ class Heuristic
   end
 
   def empty_corner
-    1 if @board.empty? 1
+    (@board.get_empty_squares & [1, 3]).first
   end
   
   def empty_side
