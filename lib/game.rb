@@ -16,10 +16,8 @@ class Game
   def go
     @ui.refresh @board
     
-    begin 
-      play_game
-      announce_winner_or_tie
-    end while @ui.play_again?
+    play_game
+    announce_winner_or_tie
   end
 
   def play_game
