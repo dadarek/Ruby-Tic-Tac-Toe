@@ -1,7 +1,8 @@
+require_relative 'winner_finder'
+
 class Game
-  def initialize(board, ui, winner_finder=WinnerFinder.new)
+  def initialize(board, ui)
     @board = board  
-    @winner_finder = winner_finder
     @ui = ui
   end
 
@@ -50,6 +51,6 @@ class Game
   end
 
   def winner
-    @winner_finder.winner_of @board
+    WinnerFinder.winner_of @board
   end
 end
