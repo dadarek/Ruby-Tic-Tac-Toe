@@ -13,6 +13,9 @@ describe GameFactory do
     game.board.p1.should == p1
     game.board.p2.should == p2
     game.ui.should == ui
+
+    DummyGame.games_created.should == 1
+    DummyGame.games_played.should == 0
   end
 
   class DummyBoard
