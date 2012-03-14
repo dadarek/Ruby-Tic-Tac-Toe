@@ -11,13 +11,13 @@ class UserPrompter
     get_square
   end
 
-  def get_play_again
+  def play_again?
     @writer.prompt_to_play_again
-    play_again = @reader.play_again
+    play_again = @reader.play_again?
     play_again = play_again.strip unless play_again.nil?
     return true if play_again == 'y'
     return false if play_again == 'n'
-    get_play_again
+    play_again?
   end 
 
   class DefaultReader
@@ -29,7 +29,7 @@ class UserPrompter
       @in_stream.gets
     end
 
-    def play_again
+    def play_again?
       @in_stream.gets
     end
   end

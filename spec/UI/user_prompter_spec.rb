@@ -26,16 +26,16 @@ describe UserPrompter do
 
   it "asks to play again" do
     @inStream.play_again_responses = ['y', 'n']
-    @prompter.get_play_again.should == true
-    @prompter.get_play_again.should == false
+    @prompter.play_again?.should == true
+    @prompter.play_again?.should == false
     @outStream.times_prompted_to_play_again.should == 2  
   end
 
   it "rejects invalid 'play-agains'" do
     @inStream.play_again_responses = ['y', nil, 'b', 'y', 'n']
-    @prompter.get_play_again.should == true
-    @prompter.get_play_again.should == true
-    @prompter.get_play_again.should == false
+    @prompter.play_again?.should == true
+    @prompter.play_again?.should == true
+    @prompter.play_again?.should == false
     @outStream.times_prompted_to_play_again.should == 5  
   end
 
@@ -45,8 +45,8 @@ describe UserPrompter do
     @prompter.get_square.should == 3
     
     @inStream.play_again_responses = ["  y \n", "n\n"]
-    @prompter.get_play_again.should == true
-    @prompter.get_play_again.should == false
+    @prompter.play_again?.should == true
+    @prompter.play_again?.should == false
   end
 
   class DummyIn
@@ -56,7 +56,7 @@ describe UserPrompter do
       @read_square_responses.shift
     end
 
-    def play_again
+    def play_again?
       @play_again_responses.shift
     end
   end
