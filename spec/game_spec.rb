@@ -5,15 +5,10 @@ describe Game do
     p1 = DummyPlayer.new
     p2 = DummyPlayer.new
     @board = Board.new(p1, p2)
-    @winner_finder = DummyWinnerFinder.new
     @dummy_ui = DummyUI.new
-    @game = Game.new(@board, @dummy_ui, @winner_finder)
+    @game = Game.new(@board, @dummy_ui)
 
     DummyPlayer.reset_counter
-  end
-
-  it "has it's own default winner finder" do
-    Game.new(nil, nil)
   end
 
   it "doesn't let players take a square already taken" do
@@ -24,21 +19,11 @@ describe Game do
     @board.player_owns_square(@board.p2, 2).should == true
   end
 
-  it "knows game is over when no squres are left" do
-    take(Array(1..9), @board.p1)
-    @game.over?.should == true
-  end
-
-  it "listens to winner finder" do
-    @game.over?.should == false
-    @winner_finder.set_winner(@board.p1)
-    @game.over?.should == true
-  end
-
-  it "announces the winner" do
-    @winner_finder.set_winner "Darek"
+  it "knows how to find the winner" do
+    @board.p1.set_moves [1, 2, 3]
+    @board.p2.set_moves [4, 5]
     @game.play
-    @dummy_ui.winner_announced.should == "Darek"
+    @dummy_ui.winner_announced.should == @board.p1
     @dummy_ui.tie_announced.should == nil
   end
 
@@ -78,16 +63,6 @@ describe Game do
 
   def take(squares, player)
     squares.each{ |square| @board.take(square, player) }
-  end
-
-  class DummyWinnerFinder
-    def winner_of(board)
-      @winner
-    end
-
-    def set_winner(winner)
-      @winner = winner
-    end
   end
 
   class DummyPlayer
