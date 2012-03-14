@@ -14,21 +14,34 @@ class Game
   end
 
   def play
+    @current_player = @board.p1
     @ui.refresh @board
-    
     play_game
     announce_winner_or_tie
   end
 
   def play_game
-    current_player = nil
-
     while not over? do
-      current_player = current_player == @board.p1 ? @board.p2 : @board.p1
-      @ui.announce_next_turn current_player
-      next_move = current_player.next_move @board
-      @board.take(next_move, current_player)
+      @ui.announce_next_turn @current_player
+      make_next_move
       @ui.refresh @board
+      move_to_next_player
+    end
+  end
+
+  def make_next_move
+    next_move = nil
+    begin
+      next_move = @current_player.next_move @board
+    end until @board.empty? next_move
+    @board.take(next_move, @current_player)
+  end
+
+  def move_to_next_player
+    if @current_player == @board.p1 then
+      @current_player = @board.p2
+    else
+      @current_player = @board.p1
     end
   end
 

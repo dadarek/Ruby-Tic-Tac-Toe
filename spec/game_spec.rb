@@ -16,6 +16,14 @@ describe Game do
     Game.new(nil, nil)
   end
 
+  it "doesn't let players take a square already taken" do
+    @board.p1.set_moves [1, 2, 3, 4, 6, 8]
+    @board.p2.set_moves [2, 5, 7, 9]
+    @game.play
+    @board.player_owns_square(@board.p1, 2).should == false
+    @board.player_owns_square(@board.p2, 2).should == true
+  end
+
   it "knows game is over when no squres are left" do
     take(Array(1..9), @board.p1)
     @game.over?.should == true
