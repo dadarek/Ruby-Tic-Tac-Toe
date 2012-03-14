@@ -9,7 +9,7 @@ describe StreamBoardPrinter do
     
 
   it "prints an empty grid" do
-    @printer.print(@board)
+    @printer.refresh(@board)
     @stream.what_printed.should == " | | \n | | \n | | \n"
   end
 
@@ -18,23 +18,23 @@ describe StreamBoardPrinter do
     @board.take(2, "o")
     @board.take(5, "x")
     @board.take(9, "o")
-    @printer.print(@board)
+    @printer.refresh(@board)
 
     @stream.what_printed.should == "x|o| \n |x| \n | |o\n"
   end
 
-  it "prints the winner" do
-    @printer.print_winner("x")
+  it "announces the winner" do
+    @printer.announce_winner("x")
     @stream.what_printed.should == "x won!\n"
   end
   
-  it "prints a tie" do
-    @printer.print_tie
+  it "announces a tie" do
+    @printer.announce_tie
     @stream.what_printed.should == "You tied!\n"
   end
 
-  it "prints next turn" do
-    @printer.print_next_turn "Eric"
+  it "announces next turn" do
+    @printer.announce_next_turn "Eric"
     @stream.what_printed.should == "Eric's turn next\n"
   end
 

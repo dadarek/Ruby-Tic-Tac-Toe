@@ -1,11 +1,11 @@
 require_relative 'game'
 require_relative 'board'
 require_relative 'heuristic'
-require_relative 'user_prompter'
+require_relative 'UI/user_prompter'
 require_relative 'computer_player'
 require_relative 'human_player'
 require_relative 'winner_finder'
-require_relative 'stream_board_printer'
+require_relative 'UI/stream_board_printer'
 
 prompter = UserPrompter.new
 printer = StreamBoardPrinter.new

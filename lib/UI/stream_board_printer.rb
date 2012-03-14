@@ -3,7 +3,7 @@ class StreamBoardPrinter
     @stream = stream
   end
 
-  def print(board)
+  def refresh(board)
     9.times { |i|
       square = i + 1
       symbol = get_symbol(board, square)
@@ -13,15 +13,15 @@ class StreamBoardPrinter
     }
   end
   
-  def print_winner(player)
+  def announce_winner(player)
     @stream.printf player.to_s << " won!\n"
   end
 
-  def print_tie
+  def announce_tie
     @stream.printf "You tied!\n"
   end
 
-  def print_next_turn(player)
+  def announce_next_turn(player)
     @stream.printf "#{player}'s turn next\n"
   end
 
