@@ -1,10 +1,8 @@
 class Game
-  def initialize(board, winner_finder, ui, p1, p2)
+  def initialize(board, winner_finder, ui)
     @board = board  
     @winner_finder = winner_finder
     @ui = ui
-    @p1 = p1
-    @p2 = p2
   end
 
   def over? 
@@ -26,7 +24,7 @@ class Game
     current_player = nil
 
     while not over? do
-      current_player = current_player == @p1 ? @p2 : @p1
+      current_player = current_player == @board.p1 ? @board.p2 : @board.p1
       @ui.announce_next_turn current_player
       next_move = current_player.next_move
       @board.take(next_move, current_player)

@@ -2,24 +2,24 @@ require 'game'
 
 describe Game do
   before(:each) do
-    @p1 = DummyPlayer.new
-    @p2 = DummyPlayer.new
-    @board = Board.new(@p1, @p2)
+    p1 = DummyPlayer.new
+    p2 = DummyPlayer.new
+    @board = Board.new(p1, p2)
     @winner_finder = DummyWinnerFinder.new
     @dummy_ui = DummyUI.new
-    @game = Game.new(@board, @winner_finder, @dummy_ui, @p1, @p2)
+    @game = Game.new(@board, @winner_finder, @dummy_ui)
 
     DummyPlayer.reset_counter
   end
 
   it "knows game is over when no squres are left" do
-    take(Array(1..9), @p1)
+    take(Array(1..9), @board.p1)
     @game.over?.should == true
   end
 
   it "listens to winner finder" do
     @game.over?.should == false
-    @winner_finder.set_winner(@p1)
+    @winner_finder.set_winner(@board.p1)
     @game.over?.should == true
   end
 
@@ -43,14 +43,14 @@ describe Game do
 
   it "asks players for their moves" do
     set_tie_moves_and_go
-    @board.get_player_squares(@p1).should =~ [1, 3, 4, 6, 8]
-    @board.get_player_squares(@p2).should =~ [2, 5, 7, 9]
+    @board.get_player_squares(@board.p1).should =~ [1, 3, 4, 6, 8]
+    @board.get_player_squares(@board.p2).should =~ [2, 5, 7, 9]
   end
 
   it "asks players for their moves - in order" do
     set_tie_moves_and_go
-    @p1.order_called.should == [1, 3, 5, 7, 9]
-    @p2.order_called.should == [2, 4, 6, 8]
+    @board.p1.order_called.should == [1, 3, 5, 7, 9]
+    @board.p2.order_called.should == [2, 4, 6, 8]
   end
 
   it "prints the board at the beginning refreshes after each turn" do
@@ -59,8 +59,8 @@ describe Game do
   end
 
   def set_tie_moves_and_go
-    @p1.set_moves [1, 3, 4, 6, 8]
-    @p2.set_moves [2, 5, 7, 9]
+    @board.p1.set_moves [1, 3, 4, 6, 8]
+    @board.p2.set_moves [2, 5, 7, 9]
     @game.go
   end
 
