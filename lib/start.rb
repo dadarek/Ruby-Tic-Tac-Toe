@@ -6,13 +6,17 @@ require_relative 'computer_player'
 require_relative 'human_player'
 require_relative 'winner_finder'
 require_relative 'UI/stream_ui'
+require_relative 'game_runner'
+require_relative 'game_factory'
 
 ui = StreamUI.new
-p1 = HumanPlayer.new UserPrompter.new
+prompter = UserPrompter.new
+
+p1 = HumanPlayer.new prompter
 p2 = ComputerPlayer.new Heuristic.new
-board = Board.new(p1, p2)
-game = Game.new(board, ui)
 
+factory = GameFactory.new(Game, Board, p1, p2, ui)
 
-game.go
+runner = GameRunner.new(prompter, factory)
+runner.go
 
