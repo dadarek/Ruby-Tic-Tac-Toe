@@ -16,9 +16,13 @@ class Game
   end
 
   def go
-    current_player = nil
-
     @ui.refresh @board
+    play_game
+    announce_winner_or_tie
+  end
+
+  def play_game
+    current_player = nil
 
     while not over? do
       current_player = current_player == @p1 ? @p2 : @p1
@@ -27,7 +31,9 @@ class Game
       @board.take(next_move, current_player)
       @ui.refresh @board
     end
+  end
 
+  def announce_winner_or_tie
     winner = @winner_finder.winner
     winner.nil? ? @ui.announce_tie : @ui.announce_winner(winner)
   end
