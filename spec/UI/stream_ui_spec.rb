@@ -1,9 +1,9 @@
-require 'UI/stream_board_printer'
+require 'UI/stream_ui'
 
-describe StreamBoardPrinter do
+describe StreamUI do
   before(:each) do
     @stream = DummyStream.new
-    @printer = StreamBoardPrinter.new(@stream)
+    @printer = StreamUI.new(@stream)
     @board = Board.new("x", "o")
   end
     
@@ -39,7 +39,7 @@ describe StreamBoardPrinter do
   end
 
   it "has a default stream" do
-    StreamBoardPrinter.new
+    StreamUI.new
   end
 
   class DummyStream

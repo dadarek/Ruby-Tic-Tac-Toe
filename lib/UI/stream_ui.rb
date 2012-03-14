@@ -1,4 +1,4 @@
-class StreamBoardPrinter
+class StreamUI
   def initialize(stream=$stdout)
     @stream = stream
   end
