@@ -59,12 +59,8 @@ describe Game do
   end
 
   def set_tie_moves_and_go
-    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
-  end
-
-  def set_moves_and_go(p1_moves, p2_moves)
-    @p1.set_moves p1_moves
-    @p2.set_moves p2_moves
+    @p1.set_moves [1, 3, 4, 6, 8]
+    @p2.set_moves [2, 5, 7, 9]
     @game.go
   end
 
