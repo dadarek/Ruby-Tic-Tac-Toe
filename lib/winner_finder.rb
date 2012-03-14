@@ -7,15 +7,15 @@ class WinnerFinder
   end
 
   def winner()
-    checkIfWinner(@board.p1) or checkIfWinner(@board.p2)
+    check_if_winner(@board.p1) or check_if_winner(@board.p2)
   end
 
-  def checkIfWinner(player)
-    player if @@WINNING_SQUARES.detect{ |row| playerOwnsSquares(player, row) } 
+  def check_if_winner(player)
+    player if @@WINNING_SQUARES.detect{ |row| player_owns_squares(player, row) } 
   end
 
-  def playerOwnsSquares(player, squares)
-    player if (squares & @board.getPlayerSquares(player) == squares)
+  def player_owns_squares(player, squares)
+    player if (squares & @board.get_player_squares(player) == squares)
   end
 
 end

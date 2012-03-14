@@ -1,32 +1,32 @@
 class Game
-  def initialize(board, winnerFinder, boardPrinter, p1, p2)
+  def initialize(board, winner_finder, board_printer, p1, p2)
     @board = board  
-    @winnerFinder = winnerFinder
-    @boardPrinter = boardPrinter
+    @winner_finder = winner_finder
+    @board_printer = board_printer
     @p1 = p1
     @p2 = p2
   end
 
-  def isOver 
-    boardIsFull or not @winnerFinder.winner.nil?
+  def over? 
+    board_full? or not @winner_finder.winner.nil?
   end
 
-  def boardIsFull
-    @board.getEmptySquares.count == 0
+  def board_full?
+    @board.get_empty_squares.count == 0
   end
 
   def go()
     current_player = nil
-    while not isOver do
+    while not over? do
       current_player = current_player == @p1 ? @p2 : @p1
-      @boardPrinter.print_next_turn current_player
-      next_move = current_player.nextMove
+      @board_printer.print_next_turn current_player
+      next_move = current_player.next_move
       @board.take(next_move, current_player)
-      @boardPrinter.print(@board)
+      @board_printer.print(@board)
     end
 
-    winner = @winnerFinder.winner
-    winner.nil? ? @boardPrinter.print_tie : @boardPrinter.print_winner(winner)
+    winner = @winner_finder.winner
+    winner.nil? ? @board_printer.print_tie : @board_printer.print_winner(winner)
   end
 
 end

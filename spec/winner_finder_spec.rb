@@ -7,43 +7,43 @@ describe WinnerFinder do
   end
 
   it "knows when there is no winner" do
-    winnerShouldBe(nil)
+    winner_should_be(nil)
   end
 
   it "knows when there is no winner, even when squares are taken" do
-    takeSquares([1], "x")
-    winnerShouldBe(nil)
+    take([1], "x")
+    winner_should_be(nil)
   end
 
   it "knows that there is no winner when the game is tie" do
-    takeSquares([1, 3, 4, 6, 8], "x")
-    takeSquares([2, 5, 7, 9], "o")
-    winnerShouldBe(nil)
+    take([1, 3, 4, 6, 8], "x")
+    take([2, 5, 7, 9], "o")
+    winner_should_be(nil)
   end  
 
   it "knows how to find winner" do
-    takeSquares([4, 6, 5], "x")
-    winnerShouldBe("x")
+    take([4, 6, 5], "x")
+    winner_should_be("x")
   end
 
   it "knows how to find a winner (other than x)" do
-    takeSquares([1, 5, 9], "o")
-    winnerShouldBe("o")
+    take([1, 5, 9], "o")
+    winner_should_be("o")
   end
 
   it "works with objects other than string literals x and o" do
     @board = Board.new({}, [])
     @finder = WinnerFinder.new(@board)
-    takeSquares([7, 8, 9], {})
-    winnerShouldBe({})
+    take([7, 8, 9], {})
+    winner_should_be({})
   end
 
-  def takeSquares(squares, player)
+  def take(squares, player)
     squares.each{ |square| @board.take(square, player) }
   end
 
-  def winnerShouldBe(winner)
-    @finder.winner().should == winner
+  def winner_should_be(winner)
+    @finder.winner.should == winner
   end
 end
    

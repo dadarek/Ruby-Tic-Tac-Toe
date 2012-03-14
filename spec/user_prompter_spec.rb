@@ -9,7 +9,7 @@ describe UserPrompter do
   end
 
   it "has default constructor arguments" do
-    somePrompter = UserPrompter.new
+    some_prompter = UserPrompter.new
   end
 
   it "asks for square" do

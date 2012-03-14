@@ -107,16 +107,16 @@ describe Heuristic do
     take_x_o_and_satisfy([], [5], [1, 3, 7, 9])
   end
 
-  def take_x_o_and_assert(x_squares, o_squares, expectedMove)
+  def take_x_o_and_assert(x_squares, o_squares, expected_move)
     take(x_squares, "x")
     take(o_squares, "o")
-    @heuristic.nextMove.should == expectedMove
+    @heuristic.next_move.should == expected_move
   end
 
-  def take_x_o_and_satisfy(x_squares, o_squares, possibleSquares)
+  def take_x_o_and_satisfy(x_squares, o_squares, possible_squares)
     take(x_squares, "x")
     take(o_squares, "o")
-    @heuristic.nextMove().should satisfy{ |square| possibleSquares.include? square }
+    @heuristic.next_move().should satisfy{ |square| possible_squares.include? square }
   end
 
   def take(squares, player)

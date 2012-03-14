@@ -7,11 +7,11 @@ describe ComputerPlayer do
     computer = ComputerPlayer.new
     computer.set_heuristic(heuristic)
 
-    computer.nextMove.should == 8
-    computer.nextMove.should == 9 
-    computer.nextMove.should == 2 
-    computer.nextMove.should == 7 
-    computer.nextMove.should == 5 
+    computer.next_move.should == 8
+    computer.next_move.should == 9 
+    computer.next_move.should == 2 
+    computer.next_move.should == 7 
+    computer.next_move.should == 5 
   end
 
   it "has a name!" do
@@ -21,11 +21,11 @@ describe ComputerPlayer do
 
   class DummyHeuristic
     def initialize
-      @movesInOrder = [5, 7, 2, 9, 8]
+      @moves_in_order = [5, 7, 2, 9, 8]
     end
     
-    def nextMove
-      @movesInOrder.pop
+    def next_move
+      @moves_in_order.pop
     end
   end
 end

@@ -3,8 +3,8 @@ class ComputerPlayer
     @heuristic = heuristic
   end
   
-  def nextMove
-    @heuristic.nextMove
+  def next_move
+    @heuristic.next_move
   end
 
   def to_s

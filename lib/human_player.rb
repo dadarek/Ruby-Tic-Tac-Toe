@@ -3,7 +3,7 @@ class HumanPlayer
     @prompter = prompter
   end
 
-  def nextMove
+  def next_move
     @prompter.get_square
   end
 
