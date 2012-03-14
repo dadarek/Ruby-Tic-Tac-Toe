@@ -31,31 +31,35 @@ describe Game do
   end
 
   it "announces a tie" do
-    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
+    set_tie_moves_and_go
     @dummy_ui.winner_announced.should == nil
     @dummy_ui.tie_announced.should == true
   end
 
   it "announces next turn" do
-    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
+    set_tie_moves_and_go
     @dummy_ui.times_next_turn_announced.should == 9
   end
 
   it "asks players for their moves" do
-    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
+    set_tie_moves_and_go
     @board.get_player_squares(@p1).should =~ [1, 3, 4, 6, 8]
     @board.get_player_squares(@p2).should =~ [2, 5, 7, 9]
   end
 
   it "asks players for their moves - in order" do
-    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
+    set_tie_moves_and_go
     @p1.order_called.should == [1, 3, 5, 7, 9]
     @p2.order_called.should == [2, 4, 6, 8]
   end
 
   it "prints the board at the beginning refreshes after each turn" do
-    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
+    set_tie_moves_and_go
     @dummy_ui.times_board_refreshed.should == 10
+  end
+
+  def set_tie_moves_and_go
+    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
   end
 
   def set_moves_and_go(p1_moves, p2_moves)
