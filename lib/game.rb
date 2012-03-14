@@ -17,6 +17,7 @@ class Game
 
   def go
     @ui.refresh @board
+    
     play_game
     announce_winner_or_tie
   end

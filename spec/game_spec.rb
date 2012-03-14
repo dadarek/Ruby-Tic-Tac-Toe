@@ -31,46 +31,37 @@ describe Game do
   end
 
   it "announces a tie" do
-    @p1.set_moves [1, 3, 4, 6, 8]
-    @p2.set_moves [2, 5, 7, 9]
-    @game.go
-
+    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
     @dummy_ui.winner_announced.should == nil
     @dummy_ui.tie_announced.should == true
   end
 
   it "announces next turn" do
-    @p1.set_moves [1, 3, 4, 6, 8]
-    @p2.set_moves [2, 5, 7, 9]
-    @game.go
- 
+    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
     @dummy_ui.times_next_turn_announced.should == 9
   end
 
   it "asks players for their moves" do
-    @p1.set_moves [1, 3, 4, 6, 8]
-    @p2.set_moves [2, 5, 7, 9]
-    @game.go
+    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
     @board.get_player_squares(@p1).should =~ [1, 3, 4, 6, 8]
     @board.get_player_squares(@p2).should =~ [2, 5, 7, 9]
   end
 
   it "asks players for their moves - in order" do
-    @p1.set_moves [1, 3, 4, 6, 8]
-    @p2.set_moves [2, 5, 7, 9]
-    @game.go
-
+    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
     @p1.order_called.should == [1, 3, 5, 7, 9]
     @p2.order_called.should == [2, 4, 6, 8]
   end
 
   it "prints the board at the beginning refreshes after each turn" do
-    @p1.set_moves [1, 3, 4, 6, 8]
-    @p2.set_moves [2, 5, 7, 9]
-    @game.go
-
+    set_moves_and_go([1, 3, 4, 6, 8], [2, 5, 7, 9])
     @dummy_ui.times_board_refreshed.should == 10
+  end
 
+  def set_moves_and_go(p1_moves, p2_moves)
+    @p1.set_moves p1_moves
+    @p2.set_moves p2_moves
+    @game.go
   end
 
   def take(squares, player)
@@ -111,11 +102,12 @@ describe Game do
   end
 
   class DummyUI
-    attr_accessor :times_board_refreshed, :winner_announced, :tie_announced, :times_next_turn_announced
+    attr_accessor :times_board_refreshed, :winner_announced, :tie_announced, :times_next_turn_announced, :times_asked_to_play_again 
 
     def initialize
       @times_board_refreshed = 0
       @times_next_turn_announced = 0
+      @times_asked_to_play_again = 0
     end
 
     def refresh(board)
