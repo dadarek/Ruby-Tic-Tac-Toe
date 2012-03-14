@@ -17,6 +17,9 @@ class Game
 
   def go
     current_player = nil
+
+    @ui.refresh @board
+
     while not over? do
       current_player = current_player == @p1 ? @p2 : @p1
       @ui.announce_next_turn current_player

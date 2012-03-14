@@ -64,12 +64,12 @@ describe Game do
     @p2.order_called.should == [2, 4, 6, 8]
   end
 
-  it "refreshes the board after each turn" do
+  it "prints the board at the beginning refreshes after each turn" do
     @p1.set_moves [1, 3, 4, 6, 8]
     @p2.set_moves [2, 5, 7, 9]
     @game.go
 
-    @dummy_ui.times_board_refreshed.should == 9
+    @dummy_ui.times_board_refreshed.should == 10
 
   end
 
