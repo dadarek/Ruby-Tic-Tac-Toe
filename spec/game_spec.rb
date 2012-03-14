@@ -6,8 +6,8 @@ describe Game do
     @p2 = DummyPlayer.new
     @board = Board.new(@p1, @p2)
     @winner_finder = DummyWinnerFinder.new
-    @board_printer = DummyPrinter.new
-    @game = Game.new(@board, @winner_finder, @board_printer, @p1, @p2)
+    @dummy_ui = DummyUI.new
+    @game = Game.new(@board, @winner_finder, @dummy_ui, @p1, @p2)
 
     DummyPlayer.reset_counter
   end
@@ -23,28 +23,28 @@ describe Game do
     @game.over?.should == true
   end
 
-  it "prints the winner" do
+  it "announces the winner" do
     @winner_finder.set_winner "Darek"
     @game.go
-    @board_printer.winner_printed.should == "Darek"
-    @board_printer.tie_printed.should == nil
+    @dummy_ui.winner_announced.should == "Darek"
+    @dummy_ui.tie_announced.should == nil
   end
 
-  it "prints a tie" do
+  it "announces a tie" do
     @p1.set_moves [1, 3, 4, 6, 8]
     @p2.set_moves [2, 5, 7, 9]
     @game.go
 
-    @board_printer.winner_printed.should == nil
-    @board_printer.tie_printed.should == true
+    @dummy_ui.winner_announced.should == nil
+    @dummy_ui.tie_announced.should == true
   end
 
-  it "prints next turn" do
+  it "announces next turn" do
     @p1.set_moves [1, 3, 4, 6, 8]
     @p2.set_moves [2, 5, 7, 9]
     @game.go
  
-    @board_printer.times_next_turn_printed.should == 9
+    @dummy_ui.times_next_turn_announced.should == 9
   end
 
   it "asks players for their moves" do
@@ -64,12 +64,12 @@ describe Game do
     @p2.order_called.should == [2, 4, 6, 8]
   end
 
-  it "prints the board after each turn" do
+  it "refreshes the board after each turn" do
     @p1.set_moves [1, 3, 4, 6, 8]
     @p2.set_moves [2, 5, 7, 9]
     @game.go
 
-    @board_printer.times_board_printed.should == 9
+    @dummy_ui.times_board_refreshed.should == 9
 
   end
 
@@ -110,28 +110,28 @@ describe Game do
     end
   end
 
-  class DummyPrinter
-    attr_accessor :times_board_printed, :winner_printed, :tie_printed, :times_next_turn_printed
+  class DummyUI
+    attr_accessor :times_board_refreshed, :winner_announced, :tie_announced, :times_next_turn_announced
 
     def initialize
-      @times_board_printed = 0
-      @times_next_turn_printed = 0
+      @times_board_refreshed = 0
+      @times_next_turn_announced = 0
     end
 
-    def print(board)
-      @times_board_printed += 1
+    def refresh(board)
+      @times_board_refreshed += 1
     end
     
-    def print_winner(player)
-      @winner_printed = player
+    def announce_winner(player)
+      @winner_announced = player
     end
  
-    def print_tie
-      @tie_printed = true
+    def announce_tie
+      @tie_announced = true
     end
 
-    def print_next_turn(player)
-      @times_next_turn_printed += 1
+    def announce_next_turn(player)
+      @times_next_turn_announced += 1
     end 
   end
 
