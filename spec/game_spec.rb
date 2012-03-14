@@ -57,6 +57,12 @@ describe Game do
     set_tie_moves_and_go
     @dummy_ui.times_board_refreshed.should == 10
   end
+  
+  it "asks to play again" do
+    @dummy_ui.times_to_play_again = 3
+    set_tie_moves_and_go
+    @dummy_ui.times_asked_to_play_again.should == 3
+  end
 
   def set_tie_moves_and_go
     @board.p1.set_moves [1, 3, 4, 6, 8]
@@ -102,12 +108,15 @@ describe Game do
   end
 
   class DummyUI
-    attr_accessor :times_board_refreshed, :winner_announced, :tie_announced, :times_next_turn_announced, :times_asked_to_play_again 
+    attr_accessor :times_board_refreshed, :winner_announced,
+      :tie_announced, :times_next_turn_announced,
+      :times_asked_to_play_again, :times_to_play_again
 
     def initialize
       @times_board_refreshed = 0
       @times_next_turn_announced = 0
       @times_asked_to_play_again = 0
+      @times_to_play_again = 0
     end
 
     def refresh(board)
@@ -125,6 +134,11 @@ describe Game do
     def announce_next_turn(player)
       @times_next_turn_announced += 1
     end 
+
+    def play_again?
+      @times_asked_to_play_again += 1
+      @times_asked_to_play_again < @times_to_play_again
+    end
   end
 
 end
