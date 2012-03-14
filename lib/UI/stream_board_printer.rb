@@ -6,8 +6,8 @@ class StreamBoardPrinter
   def refresh(board)
     9.times { |i|
       square = i + 1
-      symbol = get_symbol(board, square)
-      separator = get_separator(square)
+      symbol = symbol_for(board, square)
+      separator = separator_for(square)
       @stream.printf symbol
       @stream.printf separator
     }
@@ -25,17 +25,17 @@ class StreamBoardPrinter
     @stream.printf "#{player}'s turn next\n"
   end
 
-  def get_separator(square)
+  def separator_for(square)
     square % 3 == 0 ? "\n" : "|"
   end
 
-  def get_symbol(board, square)
-    return "x" if is_owner(board, board.p1, square)
-    return "o" if is_owner(board, board.p2, square)
+  def symbol_for(board, square)
+    return "x" if owner?(board, board.p1, square)
+    return "o" if owner?(board, board.p2, square)
     " "
   end
 
-  def is_owner(board, player, square)
+  def owner?(board, player, square)
     board.player_owns_square(player, square)
   end 
 end
