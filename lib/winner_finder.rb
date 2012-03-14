@@ -6,7 +6,7 @@ class WinnerFinder
     @board = board
   end
 
-  def winner()
+  def winner
     check_if_winner(@board.p1) or check_if_winner(@board.p2)
   end
 

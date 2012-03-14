@@ -15,7 +15,7 @@ class Game
     @board.get_empty_squares.count == 0
   end
 
-  def go()
+  def go
     current_player = nil
     while not over? do
       current_player = current_player == @p1 ? @p2 : @p1

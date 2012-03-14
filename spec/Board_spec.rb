@@ -24,7 +24,7 @@ describe Board, "#playerAt" do
   end
 
   it "knows its empty squares" do
-    @board.get_empty_squares().should =~ Array(1..9)
+    @board.get_empty_squares.should =~ Array(1..9)
   end
 
   it "removes empty squares after players take them" do

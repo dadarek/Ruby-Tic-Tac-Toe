@@ -116,7 +116,7 @@ describe Heuristic do
   def take_x_o_and_satisfy(x_squares, o_squares, possible_squares)
     take(x_squares, "x")
     take(o_squares, "o")
-    @heuristic.next_move().should satisfy{ |square| possible_squares.include? square }
+    @heuristic.next_move.should satisfy{ |square| possible_squares.include? square }
   end
 
   def take(squares, player)

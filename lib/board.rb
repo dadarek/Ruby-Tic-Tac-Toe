@@ -20,7 +20,7 @@ class Board
   end
   
   def get_player_squares(player)
-    @squares.collect{ |key, value| key if value == player }.compact()
+    @squares.collect{ |key, value| key if value == player }.compact
   end
 
   def get_empty_squares

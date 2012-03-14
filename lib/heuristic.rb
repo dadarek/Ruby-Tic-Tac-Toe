@@ -9,11 +9,11 @@ class Heuristic
     @opponent = opponent
   end
 
-  def next_move()
+  def next_move
     result ||= first_move
-    result ||= find_winning_move_for(@player)
-    result ||= find_winning_move_for(@opponent)
-    result ||= try_fork()
+    result ||= find_winning_move_for @player
+    result ||= find_winning_move_for @opponent
+    result ||= try_fork
     result ||= block_opposite_corners_fork
     result ||= block_one_edge_one_corner_fork
     result ||= center_if_empty
@@ -23,7 +23,7 @@ class Heuristic
   end
 
   def empty_corner
-    1 if @board.empty?(1)
+    1 if @board.empty? 1
   end
   
   def empty_side
@@ -31,7 +31,7 @@ class Heuristic
   end
 
   def center_if_empty
-    5 if @board.empty?(5)
+    5 if @board.empty? 5
   end
 
   def opposite_corner_if_any
@@ -51,20 +51,20 @@ class Heuristic
 
   def find_winning_move_for(some_player)
     possible_win = @@WINNING_ROWS.detect { |row| can_win(row, some_player) }
-    (possible_win & @board.get_empty_squares())[0] unless possible_win.nil?
+    (possible_win & @board.get_empty_squares)[0] unless possible_win.nil?
   end
 
   def can_win(row, player)
     squares_owned_by_player = row & @board.get_player_squares(player)
-    empty_squares = row & @board.get_empty_squares()
+    empty_squares = row & @board.get_empty_squares
 
     squares_owned_by_player.count == 2 and empty_squares.count == 1
   end
 
-  def try_fork()
-    possible_wins = @@WINNING_ROWS.select{ |row| player_owns_row(row) }
+  def try_fork
+    possible_wins = @@WINNING_ROWS.select{ |row| player_owns_row row }
     common_squares = get_common_squares(possible_wins)
-    common_squares.detect{ |square| @board.empty?(square) }
+    common_squares.detect{ |square| @board.empty? square }
   end
 
   def player_owns_row(row)
@@ -99,7 +99,7 @@ class Heuristic
   end
 
   def owns_squares(player, squares)
-    player_squares = @board.get_player_squares(player)
+    player_squares = @board.get_player_squares player
     squares.sort == player_squares.sort
   end
 
