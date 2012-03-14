@@ -103,6 +103,10 @@ describe Heuristic do
     take_x_o_and_assert([2, 5, 6, 7], [1, 3, 4, 8], 9)
   end
 
+  it "takes corner when first is square" do
+    take_x_o_and_satisfy([], [5], [1, 3, 7, 9])
+  end
+
   def take_x_o_and_assert(x_squares, o_squares, expectedMove)
     take(x_squares, "x")
     take(o_squares, "o")

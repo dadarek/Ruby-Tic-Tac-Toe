@@ -18,9 +18,14 @@ class Heuristic
     result ||= blockOneEdgeOneCornerFork
     result ||= centerIfEmpty
     result ||= oppositeCornerIfAny
+    result ||= emptyCorner
     result ||= emptySide
   end
 
+  def emptyCorner
+    1 if @board.isEmpty(1)
+  end
+  
   def emptySide
     (@board.getEmptySquares & [2, 4, 6, 8]).first
   end
