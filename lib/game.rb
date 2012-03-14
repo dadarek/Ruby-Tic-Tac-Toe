@@ -1,12 +1,12 @@
 class Game
-  def initialize(board, winner_finder, ui)
+  def initialize(board, ui, winner_finder=WinnerFinder.new)
     @board = board  
     @winner_finder = winner_finder
     @ui = ui
   end
 
   def over? 
-    board_full? or not @winner_finder.winner.nil?
+    board_full? or not winner.nil?
   end
 
   def board_full?
@@ -35,8 +35,10 @@ class Game
   end
 
   def announce_winner_or_tie
-    winner = @winner_finder.winner
     winner.nil? ? @ui.announce_tie : @ui.announce_winner(winner)
   end
 
+  def winner
+    @winner_finder.winner_of @board
+  end
 end

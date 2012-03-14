@@ -3,7 +3,7 @@ require 'winner_finder'
 describe WinnerFinder do
   before(:each) do
     @board = Board.new("x", "o")
-    @finder = WinnerFinder.new(@board)
+    @finder = WinnerFinder.new
   end
 
   it "knows when there is no winner" do
@@ -33,7 +33,7 @@ describe WinnerFinder do
 
   it "works with objects other than string literals x and o" do
     @board = Board.new({}, [])
-    @finder = WinnerFinder.new(@board)
+    @finder = WinnerFinder.new
     take([7, 8, 9], {})
     winner_should_be({})
   end
@@ -43,7 +43,7 @@ describe WinnerFinder do
   end
 
   def winner_should_be(winner)
-    @finder.winner.should == winner
+    @finder.winner_of(@board).should == winner
   end
 end
    

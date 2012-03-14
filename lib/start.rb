@@ -11,8 +11,7 @@ printer = StreamBoardPrinter.new
 p1 = HumanPlayer.new UserPrompter.new
 p2 = ComputerPlayer.new Heuristic.new
 board = Board.new(p1, p2)
-winner_finder = WinnerFinder.new(board)
-game = Game.new(board, winner_finder, printer)
+game = Game.new(board, printer)
 
 
 game.go

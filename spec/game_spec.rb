@@ -7,9 +7,13 @@ describe Game do
     @board = Board.new(p1, p2)
     @winner_finder = DummyWinnerFinder.new
     @dummy_ui = DummyUI.new
-    @game = Game.new(@board, @winner_finder, @dummy_ui)
+    @game = Game.new(@board, @dummy_ui, @winner_finder)
 
     DummyPlayer.reset_counter
+  end
+
+  it "has it's own default winner finder" do
+    Game.new(nil, nil)
   end
 
   it "knows game is over when no squres are left" do
@@ -75,7 +79,7 @@ describe Game do
   end
 
   class DummyWinnerFinder
-    def winner
+    def winner_of(board)
       @winner
     end
 
