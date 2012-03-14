@@ -1,4 +1,4 @@
-require 'stream_board_printer'
+require 'UI/stream_board_printer'
 
 describe StreamBoardPrinter do
   before(:each) do

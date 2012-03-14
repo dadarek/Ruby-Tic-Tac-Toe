@@ -22,7 +22,7 @@ class Game
       @ui.announce_next_turn current_player
       next_move = current_player.next_move
       @board.take(next_move, current_player)
-      @ui.refresh(@board)
+      @ui.refresh @board
     end
 
     winner = @winner_finder.winner

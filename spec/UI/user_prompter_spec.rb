@@ -1,4 +1,4 @@
-require 'user_prompter'
+require 'UI/user_prompter'
 
 describe UserPrompter do
 
