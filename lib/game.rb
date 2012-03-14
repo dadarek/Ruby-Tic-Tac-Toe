@@ -26,7 +26,7 @@ class Game
     while not over? do
       current_player = current_player == @board.p1 ? @board.p2 : @board.p1
       @ui.announce_next_turn current_player
-      next_move = current_player.next_move
+      next_move = current_player.next_move @board
       @board.take(next_move, current_player)
       @ui.refresh @board
     end

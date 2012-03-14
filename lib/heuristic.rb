@@ -3,13 +3,11 @@ class Heuristic
                     [1, 4, 7], [2, 5, 8], [3, 6, 9],
                     [1, 5, 9], [3, 5, 7] ]
  
-  def initialize(board, player, opponent)
+  def next_move(board, player)
     @board = board
     @player = player
-    @opponent = opponent
-  end
-
-  def next_move
+    @opponent = determine_opponent
+    
     result ||= first_move
     result ||= find_winning_move_for @player
     result ||= find_winning_move_for @opponent
@@ -20,6 +18,10 @@ class Heuristic
     result ||= opposite_corner_if_any
     result ||= empty_corner
     result ||= empty_side
+  end
+  
+  def determine_opponent
+    @board.p1 == @player ? @board.p2 : @board.p1
   end
 
   def empty_corner

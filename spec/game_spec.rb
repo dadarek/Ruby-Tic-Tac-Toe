@@ -91,7 +91,7 @@ describe Game do
       @moves = moves
     end
 
-    def next_move
+    def next_move(board)
       @order_called.push(@@callback_counter += 1)
       @moves.pop
     end

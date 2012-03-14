@@ -7,16 +7,13 @@ require_relative 'human_player'
 require_relative 'winner_finder'
 require_relative 'UI/stream_board_printer'
 
-prompter = UserPrompter.new
 printer = StreamBoardPrinter.new
-p1 = HumanPlayer.new(prompter)
-p2 = ComputerPlayer.new
+p1 = HumanPlayer.new UserPrompter.new
+p2 = ComputerPlayer.new Heuristic.new
 board = Board.new(p1, p2)
 winner_finder = WinnerFinder.new(board)
 game = Game.new(board, winner_finder, printer)
-heuristic = Heuristic.new(board, p2, p1)
 
-p2.set_heuristic(heuristic)
 
 game.go
 

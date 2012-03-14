@@ -8,9 +8,9 @@ describe HumanPlayer do
 
   it "listens to user prompter several times" do
     @prompter.moves = [5, 9, 1]
-    @player.next_move.should == 5
-    @player.next_move.should == 9
-    @player.next_move.should == 1 
+    @player.next_move(nil).should == 5
+    @player.next_move(nil).should == 9
+    @player.next_move(nil).should == 1 
   end
 
   it "has a name" do

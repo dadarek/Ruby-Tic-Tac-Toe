@@ -1,10 +1,10 @@
 class ComputerPlayer
-  def set_heuristic(heuristic)
+  def initialize(heuristic)
     @heuristic = heuristic
   end
   
-  def next_move
-    @heuristic.next_move
+  def next_move(board)
+    @heuristic.next_move(board, self)
   end
 
   def to_s

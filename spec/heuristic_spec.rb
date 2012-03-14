@@ -4,7 +4,7 @@ require 'board'
 describe Heuristic do
   before(:each) do
     @board = Board.new("x", "o")
-    @heuristic = Heuristic.new(@board, "x", "o")
+    @heuristic = Heuristic.new
   end
 
   it "takes the winning move" do
@@ -110,13 +110,13 @@ describe Heuristic do
   def take_x_o_and_assert(x_squares, o_squares, expected_move)
     take(x_squares, "x")
     take(o_squares, "o")
-    @heuristic.next_move.should == expected_move
+    @heuristic.next_move(@board, "x").should == expected_move
   end
 
   def take_x_o_and_satisfy(x_squares, o_squares, possible_squares)
     take(x_squares, "x")
     take(o_squares, "o")
-    @heuristic.next_move.should satisfy{ |square| possible_squares.include? square }
+    @heuristic.next_move(@board, "x").should satisfy{ |square| possible_squares.include? square }
   end
 
   def take(squares, player)
