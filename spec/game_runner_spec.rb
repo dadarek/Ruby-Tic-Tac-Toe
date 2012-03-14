@@ -1,4 +1,5 @@
 require 'game_runner'
+require 'dummies/dummy_game'
 
 describe GameRunner do
   it "create x games and plays that many times" do
@@ -37,20 +38,7 @@ describe GameRunner do
 
     def create
       @games_created += 1
-      DummyGame.new
+      DummyGame.new(nil, nil)
     end
   end
-
-  class DummyGame
-    @@total_games_played = 0
-
-    def self.games_played
-      @@total_games_played
-    end
-
-    def play
-      @@total_games_played += 1
-    end
-  end
-    
 end

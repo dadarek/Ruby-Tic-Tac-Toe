@@ -1,4 +1,5 @@
 require 'game_factory'
+require 'dummies/dummy_game'
 
 describe GameFactory do
   it "creates a game with given board, players, and UI" do
@@ -6,7 +7,7 @@ describe GameFactory do
     p2 = "P2"
     ui = "UI"
 
-    factory = GameFactory.new(DummyGame2, DummyBoard, p1, p2, ui)
+    factory = GameFactory.new(DummyGame, DummyBoard, p1, p2, ui)
     game = factory.create
 
     game.board.p1.should == p1
@@ -22,14 +23,4 @@ describe GameFactory do
       @p2 = p2
     end
   end
-
-  class DummyGame2
-    attr_accessor :board, :ui
-
-    def initialize(board, ui)
-      @board = board
-      @ui = ui
-    end
-  end
-
 end
