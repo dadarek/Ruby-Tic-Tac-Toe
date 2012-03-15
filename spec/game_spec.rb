@@ -1,4 +1,6 @@
 require 'game'
+require 'dummies/dummy_player'
+require 'dummies/dummy_ui'
 
 describe Game do
   before(:each) do
@@ -60,54 +62,4 @@ describe Game do
     @board.p2.set_moves [2, 5, 7, 9]
     @game.play
   end
-
-  class DummyPlayer
-    def self.reset_counter 
-      @@callback_counter = 0
-    end
-
-    def initialize
-      @order_called = Array.new
-    end
-
-    def set_moves(moves)
-      @moves = moves
-    end
-
-    def next_move(board)
-      @order_called.push(@@callback_counter += 1)
-      @moves.pop
-    end
-
-    def order_called
-      @order_called
-    end
-  end
-
-  class DummyUI
-    attr_accessor :times_board_refreshed, :winner_announced,
-      :tie_announced, :times_next_turn_announced
-
-    def initialize
-      @times_board_refreshed = 0
-      @times_next_turn_announced = 0
-    end
-
-    def refresh(board)
-      @times_board_refreshed += 1
-    end
-    
-    def announce_winner(player)
-      @winner_announced = player
-    end
- 
-    def announce_tie
-      @tie_announced = true
-    end
-
-    def announce_next_turn(player)
-      @times_next_turn_announced += 1
-    end 
-  end
-
 end
