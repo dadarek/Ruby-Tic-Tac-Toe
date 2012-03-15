@@ -1,5 +1,6 @@
 require 'heuristic'
 require 'board'
+require 'board_utilities'
 
 describe Heuristic do
   before(:each) do
@@ -116,19 +117,13 @@ describe Heuristic do
   end
 
   def take_x_o_and_assert(x_squares, o_squares, expected_move)
-    take(x_squares, "x")
-    take(o_squares, "o")
+    take_x_o(@board, x_squares, o_squares)
     @heuristic.next_move(@board, "x").should == expected_move
   end
 
   def take_x_o_and_satisfy(x_squares, o_squares, possible_squares)
-    take(x_squares, "x")
-    take(o_squares, "o")
+    take_x_o(@board, x_squares, o_squares)
     @heuristic.next_move(@board, "x").should satisfy{ |square| possible_squares.include? square }
-  end
-
-  def take(squares, player)
-    squares.each{ |square| @board.take(square, player) }
   end
 
 end

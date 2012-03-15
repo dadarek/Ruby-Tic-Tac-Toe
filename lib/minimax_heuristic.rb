@@ -1,0 +1,2 @@
+class MinimaxHeuristic
+end

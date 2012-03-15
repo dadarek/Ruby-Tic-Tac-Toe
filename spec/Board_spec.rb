@@ -1,4 +1,5 @@
 require 'board'
+require 'board_utilities'
 
 describe Board, "#playerAt" do
   before(:each) do
@@ -10,14 +11,13 @@ describe Board, "#playerAt" do
   end
 
   it "remembers players squares" do
-    take("x", [1, 3])
+    take(@board, "x", [1, 3])
 
     @board.get_player_squares("x").should =~ [1, 3]
   end
 
   it "remembers 2 players squares" do
-    take("x", [2, 5, 9])
-    take("o", [8, 1])
+    take_x_o(@board, [2, 5, 9], [8, 1])
 
     @board.get_player_squares("x").should =~ [2, 5, 9]
     @board.get_player_squares("o").should =~ [1, 8]
@@ -28,11 +28,8 @@ describe Board, "#playerAt" do
   end
 
   it "removes empty squares after players take them" do
-    take("x", [5, 9])
+    take(@board, "x", [5, 9])
     @board.get_empty_squares().should =~ [1, 2, 3, 4, 6, 7, 8]
   end
 
-  def take(player, squares)
-    squares.each{ |square| @board.take(square, player) }
-  end
 end 
