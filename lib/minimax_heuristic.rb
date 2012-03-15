@@ -1,21 +1,21 @@
 require 'set'
 
 class MinimaxHeuristic
-# @@POSSIBLE_WINS = [ [1, 2, 3], [4, 5, 6], [7, 8, 9],
-#                     [1, 4, 7], [2, 5, 8], [3, 6, 9],
-#                     [1, 5, 9], [3, 5, 7] ]
+  @@POSSIBLE_WINS = [ Set[1, 2, 3], Set[4, 5, 6], Set[7, 8, 9],
+                     Set[1, 4, 7], Set[2, 5, 8], Set[3, 6, 9],
+                     Set[1, 5, 9], Set[3, 5, 7]
+                    ]
   def self.score(player_squares, opponent_squares)
-    if won? player_squares
+    if won? player_squares.to_set
       return 1
-    elsif won? opponent_squares
+    elsif won? opponent_squares.to_set
       return -1
     end
     0
   end
 
   def self.won?(squares)
-    Set[1, 2, 3].subset? squares.to_set or
-      Set[1, 4, 7].subset? squares.to_set
+    nil != @@POSSIBLE_WINS.detect{ |win| win.subset? squares }
   end
   
   def self.contains?(winning_squares, player_squares)
