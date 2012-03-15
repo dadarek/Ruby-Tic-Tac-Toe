@@ -1,4 +1,5 @@
 require 'human_player'
+require 'dummies/dummy_prompter'
 
 describe HumanPlayer do
   before(:each) do
@@ -15,14 +16,6 @@ describe HumanPlayer do
 
   it "has a name" do
     @player.to_s.should == "You"
-  end
-
-  class DummyPrompter
-    attr_accessor :moves
-
-    def get_square
-      @moves.shift
-    end
   end
 end
 
