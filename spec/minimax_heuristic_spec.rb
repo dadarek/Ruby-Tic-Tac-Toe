@@ -3,6 +3,11 @@ require 'board_utilities'
 require 'board'
 
 describe MinimaxHeuristic do
+  before(:each) do
+    @heuristic = MinimaxHeuristic.new
+    @board = Board.new("x", "o")
+  end
+
   it "scores tie as 0" do
     assert_score([1, 3, 4, 6, 8], [2, 5, 7, 9], 0)
   end
@@ -55,20 +60,17 @@ describe MinimaxHeuristic do
   end
 
   it "selects the correct (non-winning) next move" do
-    board = Board.new("x", "o")
-    take_x_o(board, [2, 4, 7], [1, 3, 5])
-    MinimaxHeuristic.next_move(board, "x").should == 9
+    take_x_o(@board, [2, 4, 7], [1, 3, 5])
+    @heuristic.next_move(@board, "x").should == 9
   end
 
   it "selects the correct (winning) next move" do
-    board = Board.new("x", "o")
-    take_x_o(board, [1, 2], [4, 5])
-    MinimaxHeuristic.next_move(board, "x").should == 3
+    take_x_o(@board, [1, 2], [4, 5])
+    @heuristic.next_move(@board, "x").should == 3
   end
 
   it "makes the correct first move" do
-    board = Board.new("x", "o")
-    MinimaxHeuristic.next_move(board, "x").should == 5
+    @heuristic.next_move(@board, "x").should == 5
   end
 
 
