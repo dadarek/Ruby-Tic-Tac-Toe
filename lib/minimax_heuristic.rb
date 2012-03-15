@@ -15,8 +15,17 @@ class MinimaxHeuristic
   end
 
   def self.score_if_takes_square(player_squares, opponent_squares, next_square)
-    new_squares = player_squares + Array(next_square)
-    score(new_squares, opponent_squares)
+    result = nil
+    if player_squares.count + opponent_squares.count == 8
+      result = score(player_squares + Array(next_square), opponent_squares)
+    elsif player_squares.count + opponent_squares.count == 7
+      result = score(player_squares + Array(next_square), opponent_squares)
+      if result == 0
+        last_square = Array(1..9) - player_squares - opponent_squares - Array(next_square)
+        result = score(player_squares + Array(next_square), opponent_squares + Array(last_square))
+      end
+    end
+    result
   end
 
   def self.won?(squares)

@@ -17,12 +17,20 @@ describe MinimaxHeuristic do
     assert_win_loss([3, 5, 7], [1, 2])
   end
 
-  it "scores open winning square as 1" do
-    MinimaxHeuristic.score_if_takes_square([1, 2], [4, 5], 3).should == 1
+  it "scores winning square as 1" do
+    MinimaxHeuristic.score_if_takes_square([1, 3, 5, 8], [2, 4, 6, 7], 9).should == 1
   end
 
-  it "scores open netural square as 0" do
-    MinimaxHeuristic.score_if_takes_square([1, 4], [2, 5], 3).should == 0
+  it "scores final netural square as 0" do
+    MinimaxHeuristic.score_if_takes_square([4, 6, 7, 9], [1, 3, 5, 8], 9).should == 0
+  end
+
+  it "scores a losing second-to-last move as -1" do
+    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5, 8], 6).should == -1
+  end
+  
+  it "scores a neutral second-to-last move as 0" do
+    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5, 8], 9).should == 0
   end
 
   def assert_win_loss(winning_squares, losing_squares)
