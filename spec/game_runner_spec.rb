@@ -1,6 +1,7 @@
 require 'game_runner'
 require 'dummies/dummy_game'
 require 'dummies/dummy_prompter'
+require 'dummies/dummy_factory'
 
 describe GameRunner do
   it "create x games and plays that many times" do
@@ -21,16 +22,4 @@ describe GameRunner do
     DummyGame.games_created.should == 5
   end
   
-  class DummyFactory
-    attr_accessor :games_created
-
-    def initialize
-      @games_created = 0
-    end
-
-    def create
-      @games_created += 1
-      DummyGame.new(nil, nil)
-    end
-  end
 end
