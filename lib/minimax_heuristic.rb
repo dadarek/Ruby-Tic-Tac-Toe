@@ -6,24 +6,13 @@ class MinimaxHeuristic
                      Set[1, 5, 9], Set[3, 5, 7]
                     ]
   def self.score(player_squares, opponent_squares)
-    h = MinimaxHeuristic.new(player_squares, opponent_squares)
-    h.score_of
-  end
-  
-  def initialize(player_squares, opponent_squares)
-    @player_squares = player_squares
-    @opponent_squares = opponent_squares
-  end
-
-  def score_of
-    if won? @player_squares.to_set
+    if won? player_squares.to_set
       return 1
-    elsif won? @opponent_squares.to_set
+    elsif won? opponent_squares.to_set
       return -1
     end
     0
   end
-    
 
   def self.score_if_takes_square(player_squares, opponent_squares, next_square)
     result = nil
@@ -39,11 +28,11 @@ class MinimaxHeuristic
     result
   end
 
-  def won?(squares)
+  def self.won?(squares)
     nil != @@POSSIBLE_WINS.detect{ |win| win.subset? squares }
   end
   
-  def contains?(winning_squares, player_squares)
+  def self.contains?(winning_squares, player_squares)
     winning_squares.to_set.subset? player_squares.to_set
   end
 end
