@@ -1,4 +1,5 @@
 require 'UI/user_prompter'
+require 'board'
 
 describe UserPrompter do
 
@@ -39,6 +40,21 @@ describe UserPrompter do
     @outStream.times_prompted_to_play_again.should == 5  
   end
 
+  it "asks to play first" do
+    @inStream.play_first_responses = ['n', 'y']
+    @prompter.play_first?.should == false
+    @prompter.play_first?.should == true
+    @outStream.times_prompted_to_play_first.should == 2  
+  end
+
+  it "rejects invalid 'play-firsts'" do
+    @inStream.play_first_responses = ['n', nil, 'b', 'y', 'n']
+    @prompter.play_first?.should == false
+    @prompter.play_first?.should == true
+    @prompter.play_first?.should == false
+    @outStream.times_prompted_to_play_first.should == 5  
+  end
+
   it "ignores trailing whitespaces" do
     @inStream.read_square_responses = [" 1 \n ", "   3\n"]
     @prompter.get_square.should == 1
@@ -50,7 +66,7 @@ describe UserPrompter do
   end
 
   class DummyIn
-    attr_writer :read_square_responses, :play_again_responses
+    attr_writer :read_square_responses, :play_again_responses, :play_first_responses
 
     def read_square
       @read_square_responses.shift
@@ -59,14 +75,19 @@ describe UserPrompter do
     def play_again?
       @play_again_responses.shift
     end
+
+    def play_first?
+      @play_first_responses.shift
+    end
   end
 
   class DummyOut
-    attr_reader :times_prompted_for_square, :times_prompted_to_play_again
+    attr_reader :times_prompted_for_square, :times_prompted_to_play_again, :times_prompted_to_play_first
 
     def initialize
       @times_prompted_for_square = 0
       @times_prompted_to_play_again = 0
+      @times_prompted_to_play_first = 0
     end
 
     def prompt_for_square
@@ -75,6 +96,10 @@ describe UserPrompter do
 
     def prompt_to_play_again
       @times_prompted_to_play_again += 1
+    end
+
+    def prompt_to_play_first
+      @times_prompted_to_play_first += 1
     end
   end
   
