@@ -6,36 +6,15 @@ describe MinimaxHeuristic do
     assert_score([1, 3, 4, 6, 8], [2, 5, 7, 9], 0)
   end
 
-  it "scores win as 1 and loss as -1 (1, 2, 3)" do
-    assert_win_loss([1, 2, 3, 5, 8], [4, 6, 7, 9])
-  end
-
-  it "scores win as 1 and loss as -1 (4, 5, 6)" do
-    assert_win_loss([2, 4, 5, 6, 8], [1, 3, 7, 9])
-  end
-
-  it "scores win as 1 and loss as -1 (7, 8, 9)" do
-    assert_win_loss([2, 5, 7, 8, 9], [1, 3, 4, 6])
-  end
-
-  it "scores win as 1 and loss as -1 (1, 4, 7)" do
-    assert_win_loss([1, 2, 4, 7, 9], [3, 5, 6, 8])
-  end
-
-  it "scores win as 1 and loss as -1 (2, 5, 8)" do
-    assert_win_loss([2, 3, 4, 5, 8], [1, 6, 7, 9])
-  end
-
-  it "scores win as 1 and loss as -1 (3, 6, 9)" do
-    assert_win_loss([1, 3, 6, 8, 9], [2, 4, 5, 7])
-  end
-
-  it "scores win as 1 and loss as -1 (1, 5, 9)" do
-    assert_win_loss([1, 3, 4, 5, 9], [2, 6, 7, 8])
-  end
-
-  it "scores win as 1 and loss as -1 (3, 5, 7)" do
-    assert_win_loss([1, 3, 5, 7, 8], [2, 4, 6, 9])
+  it "scores wins as 1 and losses as -1" do
+    assert_win_loss([1, 2, 3], [4, 5])
+    assert_win_loss([4, 5, 6], [7, 8])
+    assert_win_loss([7, 8, 9], [1, 2])
+    assert_win_loss([1, 4, 7], [2, 3])
+    assert_win_loss([2, 5, 8], [1, 3])
+    assert_win_loss([3, 6, 9], [1, 2])
+    assert_win_loss([1, 5, 9], [2, 3])
+    assert_win_loss([3, 5, 7], [1, 2])
   end
 
   def assert_win_loss(winning_squares, losing_squares)
