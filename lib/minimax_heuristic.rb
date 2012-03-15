@@ -14,6 +14,11 @@ class MinimaxHeuristic
     0
   end
 
+  def self.score_if_takes_square(player_squares, opponent_squares, next_square)
+    new_squares = player_squares + Array(next_square)
+    score(new_squares, opponent_squares)
+  end
+
   def self.won?(squares)
     nil != @@POSSIBLE_WINS.detect{ |win| win.subset? squares }
   end
