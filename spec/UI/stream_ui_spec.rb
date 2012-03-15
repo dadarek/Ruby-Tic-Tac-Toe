@@ -1,5 +1,6 @@
 require 'UI/stream_ui'
 require 'dummies/dummy_stream'
+require 'board_utilities'
 
 describe StreamUI do
   before(:each) do
@@ -15,10 +16,7 @@ describe StreamUI do
   end
 
   it "prints a somewhat-filled grid" do
-    @board.take(1, "x")
-    @board.take(2, "o")
-    @board.take(5, "x")
-    @board.take(9, "o")
+    take_x_o(@board, [1, 5], [2, 9])
     @printer.refresh(@board)
 
     @stream.what_printed.should == "x|o| \n |x| \n | |o\n"

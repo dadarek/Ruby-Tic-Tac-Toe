@@ -61,10 +61,6 @@ describe Game do
     @game.play
   end
 
-  def take(squares, player)
-    squares.each{ |square| @board.take(square, player) }
-  end
-
   class DummyPlayer
     def self.reset_counter 
       @@callback_counter = 0
