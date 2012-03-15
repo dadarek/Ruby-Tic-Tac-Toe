@@ -19,10 +19,9 @@ class MinimaxHeuristic
 
     result = score(new_player, opponent)
     if result == 0 and not last_move?(new_player, opponent)
-      last_squares = Array(1..9) - new_player - opponent
-      last_squares.each{ |square|
-        result -= score_if_takes_square(opponent, new_player, square)
-      }
+      open_squares = Array(1..9) - new_player - opponent
+      possible_opponent_results = open_squares.collect{ |square| score_if_takes_square(opponent, new_player, square) }
+      result = (possible_opponent_results.max) * -1
     end
     result
   end
@@ -43,7 +42,6 @@ class MinimaxHeuristic
 
     empty_squares = board.get_empty_squares
 
-    result ||= 5 if empty_squares.count == 9
     result ||= empty_squares.detect{ |square| 1 == MinimaxHeuristic.score(player_squares + Array(square), opponent_squares) }
     result ||= empty_squares.max_by{ |square| MinimaxHeuristic.score_if_takes_square(player_squares, opponent_squares, square) }
   end
