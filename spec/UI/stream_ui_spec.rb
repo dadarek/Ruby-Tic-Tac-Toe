@@ -1,4 +1,5 @@
 require 'UI/stream_ui'
+require 'dummies/dummy_stream'
 
 describe StreamUI do
   before(:each) do
@@ -40,16 +41,5 @@ describe StreamUI do
 
   it "has a default stream" do
     StreamUI.new
-  end
-
-  class DummyStream
-    attr_accessor :what_printed
-    def initialize
-      @what_printed = ""
-    end
-
-    def printf(s)
-      @what_printed << s 
-    end
   end
 end

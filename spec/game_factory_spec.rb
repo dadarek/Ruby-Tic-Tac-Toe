@@ -1,5 +1,6 @@
 require 'game_factory'
 require 'dummies/dummy_game'
+require 'dummies/dummy_board'
 
 describe GameFactory do
   it "creates a game with given board, players, and UI" do
@@ -16,14 +17,5 @@ describe GameFactory do
 
     DummyGame.games_created.should == 1
     DummyGame.games_played.should == 0
-  end
-
-  class DummyBoard
-    attr_accessor :p1, :p2
-    
-    def initialize(p1, p2)
-      @p1 = p1
-      @p2 = p2
-    end
   end
 end

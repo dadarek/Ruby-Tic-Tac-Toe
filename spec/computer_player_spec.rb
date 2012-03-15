@@ -1,4 +1,5 @@
 require 'computer_player'
+require 'dummies/dummy_heuristic'
 
 describe ComputerPlayer do
   it "listens to the heuristic" do
@@ -18,13 +19,4 @@ describe ComputerPlayer do
     computer.to_s.should == "Computer"
   end
 
-  class DummyHeuristic
-    def initialize
-      @moves_in_order = [5, 7, 2, 9, 8]
-    end
-    
-    def next_move(board, player)
-      @moves_in_order.pop
-    end
-  end
 end
