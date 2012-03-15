@@ -5,34 +5,33 @@ class MinimaxHeuristic
                      Set[1, 4, 7], Set[2, 5, 8], Set[3, 6, 9],
                      Set[1, 5, 9], Set[3, 5, 7]
                     ]
-  def self.score(player_squares, opponent_squares)
-    if won? player_squares.to_set
+  def self.score(player, opponent)
+    if won? player.to_set
       return 1
-    elsif won? opponent_squares.to_set
+    elsif won? opponent.to_set
       return -1
     end
     0
   end
 
-  def self.score_if_takes_square(player_squares, opponent_squares, next_square)
-    result = nil
-    if player_squares.count + opponent_squares.count == 8
-      result = score(player_squares + Array(next_square), opponent_squares)
-    elsif player_squares.count + opponent_squares.count == 7
-      result = score(player_squares + Array(next_square), opponent_squares)
-      if result == 0
-        last_square = Array(1..9) - player_squares - opponent_squares - Array(next_square)
-        result = score(player_squares + Array(next_square), opponent_squares + Array(last_square))
-      end
+  def self.score_if_takes_square(player, opponent, next_square)
+    new_player = player + Array(next_square)
+
+    result = score(new_player, opponent)
+    if result == 0 and not last_move?(new_player, opponent)
+      last_squares = Array(1..9) - new_player - opponent
+      last_squares.each{ |square|
+        result -= score_if_takes_square(opponent, new_player, square)
+      }
     end
     result
   end
 
+  def self.last_move?(player, opponent)
+    player.count + opponent.count == 9
+  end
+
   def self.won?(squares)
     nil != @@POSSIBLE_WINS.detect{ |win| win.subset? squares }
-  end
-  
-  def self.contains?(winning_squares, player_squares)
-    winning_squares.to_set.subset? player_squares.to_set
   end
 end

@@ -33,6 +33,30 @@ describe MinimaxHeuristic do
     MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5, 8], 9).should == 0
   end
 
+  it "scores a winning third-to-last move as 1" do
+    MinimaxHeuristic.score_if_takes_square([1, 7, 8], [2, 4, 5], 9).should == 1
+  end
+
+  it "scores a possible-win third-to-last move as 1" do
+    MinimaxHeuristic.score_if_takes_square([1, 7, 8], [2, 4, 5], 6).should == 1
+  end
+
+  it "scores a losing third-to-last move as -1" do
+    MinimaxHeuristic.score_if_takes_square([1, 7, 8], [2, 4, 5], 3).should == -1
+  end
+
+  it "scores a one-possible-loss fourth-to-last move as -1" do
+    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5], 6).should == -1
+  end
+
+  it "scores a one-possible-win fourth-to-last move as 1" do
+    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5], 9).should == 1
+  end
+
+  it "scores a one-possible-win one-possible-loss fourth-to-last move as 0" do
+    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5], 8).should == 0
+  end
+
   def assert_win_loss(winning_squares, losing_squares)
     assert_score(winning_squares, losing_squares, 1)
     assert_score(losing_squares, winning_squares, -1)
