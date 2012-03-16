@@ -59,4 +59,13 @@ describe StreamUI do
     @ui.get_square.should == 2
     @ui.get_square.should == 7
   end
+
+  it "asks to play again" do
+    @in.buffer = ["y", "yn", 0, "maybe so", "true", "YES", "no", "YeS", "N"]
+    @ui.play_again.should == true
+    @ui.play_again.should == true
+    @ui.play_again.should == false
+    @ui.play_again.should == true
+    @ui.play_again.should == false
+  end
 end
