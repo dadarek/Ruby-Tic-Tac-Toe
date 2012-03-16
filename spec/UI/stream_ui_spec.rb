@@ -65,16 +65,22 @@ describe StreamUI do
     assert_consecutive_calls(call, [true, false, true, false, false])
   end
 
-  it "prints the 'go first' message until you say yes or no" do
+  it "prints the 'go first' message until you give a valid response" do
     @in.buffer = [nil, nil, nil, "YES"]
     @ui.go_first?
-    @out.buffer.should == "Do you want to go first?\n" * 4
+    @out.buffer.should == "Do you want to go first? " * 4
   end
 
   it "prints the 'next square' message until you give a valid square" do
     @in.buffer = [0, "y", {}, "bob", 5]
     @ui.get_square
-    @out.buffer.should == "Select a square (1-9): \n" * 5
+    @out.buffer.should == "Select a square (1-9): " * 5
+  end
+
+  it "prints the 'play again' message until you give a valid response" do
+    @in.buffer = ["john smith", 5, true, "N"]
+    @ui.play_again?
+    @out.buffer.should == "You wanna play again? " * 4
   end
 
   def assert_consecutive_calls(p, expected_values)
