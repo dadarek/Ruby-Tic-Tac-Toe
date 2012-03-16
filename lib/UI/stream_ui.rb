@@ -1,6 +1,5 @@
 class StreamUI
-  def initialize(stream=$stdout, in_stream=$stdin, out_stream=$stdout)
-    @stream = stream
+  def initialize(in_stream=$stdin, out_stream=$stdout)
     @in = in_stream
     @out = out_stream
   end
@@ -16,15 +15,15 @@ class StreamUI
   end
   
   def announce_winner(player)
-    @stream.printf player.to_s << " won!\n"
+    @out.printf player.to_s << " won!\n"
   end
 
   def announce_tie
-    @stream.printf "You tied!\n"
+    @out.printf "You tied!\n"
   end
 
   def announce_next_turn(player)
-    @stream.printf "#{player}'s turn next\n"
+    @out.printf "#{player}'s turn next\n"
   end
 
   def separator_for(square)
