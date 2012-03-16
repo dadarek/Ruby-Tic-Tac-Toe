@@ -44,6 +44,7 @@ class StreamUI
   def input_to_bool
     value = @in.gets
     value = value.upcase if value.respond_to? :upcase
+    value = value.strip if value.respond_to? :strip
     return true if ["YES", "Y"].include? value 
     return false if ["NO", "N"].include? value
   end

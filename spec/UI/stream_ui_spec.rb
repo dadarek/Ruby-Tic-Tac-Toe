@@ -54,13 +54,13 @@ describe StreamUI do
   end
 
   it "asks to play again" do
-    @in.buffer = ["y", "yn", 0, "maybe so", "true", "YES", "no", "YeS", "N"]
+    @in.buffer = ["y ", "yn", 0, "maybe so", "true", "YES", "no", "YeS", "N"]
     call = lambda { @ui.play_again?} 
     assert_consecutive_calls(call, [true, true, false, true, false] )
   end
 
   it "asks to go first" do
-    @in.buffer = ["so", "true", "YES", "NO", "YeS", "N", "n", "yn", 0, "maybe" ]
+    @in.buffer = ["so", "true", "YES", "NO", "YeS", "N\n", "n", "yn", 0, "maybe" ]
     call = lambda { @ui.go_first? }
     assert_consecutive_calls(call, [true, false, true, false, false] )
   end
