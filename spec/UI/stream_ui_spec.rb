@@ -17,28 +17,28 @@ describe StreamUI do
 
   it "prints an empty grid" do
     @ui.refresh(@board)
-    @out.buffer.should == " | | \n | | \n | | \n"
+    assert_out_buffer " | | \n | | \n | | \n"
   end
 
   it "prints a somewhat-filled grid" do
     take_x_o(@board, [1, 5], [2, 9])
     @ui.refresh(@board)
-    @out.buffer.should == "x|o| \n |x| \n | |o\n"
+    assert_out_buffer "x|o| \n |x| \n | |o\n"
   end
 
   it "announces the winner" do
     @ui.announce_winner("x")
-    @out.buffer.should == "x won!\n"
+    assert_out_buffer "x won!\n"
   end
   
   it "announces a tie" do
     @ui.announce_tie
-    @out.buffer.should == "You tied!\n"
+    assert_out_buffer "You tied!\n"
   end
 
   it "announces next turn" do
     @ui.announce_next_turn "Eric"
-    @out.buffer.should == "Eric's turn next\n"
+    assert_out_buffer "Eric's turn next\n"
   end
   
   it "asks for next square, ignoring whitespace" do
@@ -68,22 +68,26 @@ describe StreamUI do
   it "prints the 'go first' message until you give a valid response" do
     @in.buffer = [nil, nil, nil, "YES"]
     @ui.go_first?
-    @out.buffer.should == "Do you want to go first? " * 4
+    assert_out_buffer "Do you want to go first? " * 4
   end
 
   it "prints the 'next square' message until you give a valid square" do
     @in.buffer = [0, "y", {}, "bob", 5]
     @ui.get_square
-    @out.buffer.should == "Select a square (1-9): " * 5
+    assert_out_buffer "Select a square (1-9): " * 5
   end
 
   it "prints the 'play again' message until you give a valid response" do
     @in.buffer = ["john smith", 5, true, "N"]
     @ui.play_again?
-    @out.buffer.should == "You wanna play again? " * 4
+    assert_out_buffer "You wanna play again? " * 4
   end
 
   def assert_consecutive_calls(p, expected_values)
     expected_values.each{ |value| p.call.should == value } 
+  end
+
+  def assert_out_buffer(expected_value)
+    @out.buffer.should == expected_value
   end
 end

@@ -9,38 +9,38 @@ class StreamUI
       square = i + 1
       symbol = symbol_for(board, square)
       separator = separator_for(square)
-      @out.printf symbol
-      @out.printf separator
+      print symbol
+      print separator
     }
   end
   
   def announce_winner(player)
-    @out.printf player.to_s << " won!\n"
+    print_line player.to_s << " won!"
   end
 
   def announce_tie
-    @out.printf "You tied!\n"
+    print_line "You tied!"
   end
 
   def announce_next_turn(player)
-    @out.printf "#{player}'s turn next\n"
+    print_line "#{player}'s turn next"
   end
 
   def get_square
-    @out.printf "Select a square (1-9): "
+    print "Select a square (1-9): "
     input = @in.gets
     input = input.to_i if input.respond_to? :to_i
     ((1..9).include? input) ? input : get_square
   end
 
   def play_again?
-    @out.printf "You wanna play again? "
+    print "You wanna play again? "
     result = input_to_bool
     result.nil? ? play_again? : result
   end
 
   def go_first?
-    @out.printf "Do you want to go first? "
+    print "Do you want to go first? "
     result = input_to_bool
     result.nil? ? go_first? : result
   end
@@ -66,4 +66,13 @@ class StreamUI
   def owner?(board, player, square)
     board.player_owns_square(player, square)
   end 
+
+  def print(s)
+    @out.printf s
+  end
+
+  def print_line(s)
+    @out.printf s
+    @out.printf "\n"
+  end
 end
