@@ -40,4 +40,23 @@ describe StreamUI do
     @ui.announce_next_turn "Eric"
     @out.buffer.should == "Eric's turn next\n"
   end
+  
+  it "asks for next square" do
+    @in.buffer = [2]
+    @ui.get_square.should == 2
+  end
+  
+  it "asks for next square, ignoring whitespace" do
+    @in.buffer = ["2 ", "1\n", "3  \n", "  7 \n"]
+    @ui.get_square.should == 2
+    @ui.get_square.should == 1
+    @ui.get_square.should == 3
+    @ui.get_square.should == 7
+  end
+
+  it "asks for next square, ignoring bogus input" do
+    @in.buffer = ["2 ", "hello", 0, "eric", "7 hundred", 5]
+    @ui.get_square.should == 2
+    @ui.get_square.should == 7
+  end
 end

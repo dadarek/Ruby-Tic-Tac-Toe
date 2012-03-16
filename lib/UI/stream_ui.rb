@@ -26,6 +26,11 @@ class StreamUI
     @out.printf "#{player}'s turn next\n"
   end
 
+  def get_square
+    input = @in.gets.to_i 
+    ((1..9).include? input) ? input : get_square
+  end
+
   def separator_for(square)
     square % 3 == 0 ? "\n" : "|"
   end
