@@ -1,17 +1,18 @@
+require 'set'
+
 class WinnerFinder
-  @@WINNING_SQUARES = [ [1, 2, 3], [4, 5, 6], [7, 8, 9], 
-                       [1, 4, 7], [2, 5, 8], [3, 6, 9],
-                       [1, 5, 9], [3, 5, 7] ]
+  @@WINNING_SQUARES = [ Set[1, 2, 3], Set[4, 5, 6], Set[7, 8, 9], 
+                        Set[1, 4, 7], Set[2, 5, 8], Set[3, 6, 9],
+                        Set[1, 5, 9], Set[3, 5, 7] ]
   def self.winner_of(board)
-    check_if_winner(board, board.p1) or check_if_winner(board, board.p2)
+    result ||= (board.p1 if winner?(board, board.p1))
+    result ||= (board.p2 if winner?(board, board.p2))
   end
 
-  def self.check_if_winner(board, player)
-    player if @@WINNING_SQUARES.detect{ |row| player_owns_squares(board, player, row) } 
-  end
-
-  def self.player_owns_squares(board, player, squares)
-    player if (squares & board.get_player_squares(player) == squares)
+  def self.winner?(board, player)
+    player_squares = board.get_player_squares player
+    player_squares = player_squares.to_set
+    nil != @@WINNING_SQUARES.detect{ |winning_squares| winning_squares.subset? player_squares}
   end
 
 end
