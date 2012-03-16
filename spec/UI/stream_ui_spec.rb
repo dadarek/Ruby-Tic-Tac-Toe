@@ -62,19 +62,15 @@ describe StreamUI do
 
   it "asks to play again" do
     @in.buffer = ["y", "yn", 0, "maybe so", "true", "YES", "no", "YeS", "N"]
-    @ui.play_again?.should == true
-    @ui.play_again?.should == true
-    @ui.play_again?.should == false
-    @ui.play_again?.should == true
-    @ui.play_again?.should == false
+    call_and_assert(lambda { @ui.play_again?}, [true, true, false, true, false] )
   end
 
   it "asks to go first" do
     @in.buffer = ["so", "true", "YES", "NO", "YeS", "N", "n", "yn", 0, "maybe" ]
-    @ui.go_first?.should == true
-    @ui.go_first?.should == false
-    @ui.go_first?.should == true
-    @ui.go_first?.should == false
-    @ui.go_first?.should == false
+    call_and_assert(lambda { @ui.go_first?}, [true, false, true, false, false] )
+  end
+
+  def call_and_assert(p, expected_values)
+    expected_values.each{ |value| p.call.should == value } 
   end
 end
