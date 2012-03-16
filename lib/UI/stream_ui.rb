@@ -1,6 +1,8 @@
 class StreamUI
   def initialize(stream=$stdout, in_stream=$stdin, out_stream=$stdout)
     @stream = stream
+    @in = in_stream
+    @out = out_stream
   end
 
   def refresh(board)
@@ -8,8 +10,8 @@ class StreamUI
       square = i + 1
       symbol = symbol_for(board, square)
       separator = separator_for(square)
-      @stream.printf symbol
-      @stream.printf separator
+      @out.printf symbol
+      @out.printf separator
     }
   end
   

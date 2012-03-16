@@ -7,6 +7,8 @@ require 'board_utilities'
 describe StreamUI do
   before(:each) do
     @stream = DummyStream.new
+    @in = DummyIn.new
+    @out = DummyOut.new
     @printer = StreamUI.new(@stream, @in, @out)
     @board = Board.new("x", "o")
   end
@@ -14,14 +16,13 @@ describe StreamUI do
 
   it "prints an empty grid" do
     @printer.refresh(@board)
-    @stream.what_printed.should == " | | \n | | \n | | \n"
+    @out.buffer.should == " | | \n | | \n | | \n"
   end
 
   it "prints a somewhat-filled grid" do
     take_x_o(@board, [1, 5], [2, 9])
     @printer.refresh(@board)
-
-    @stream.what_printed.should == "x|o| \n |x| \n | |o\n"
+    @out.buffer.should == "x|o| \n |x| \n | |o\n"
   end
 
   it "announces the winner" do
