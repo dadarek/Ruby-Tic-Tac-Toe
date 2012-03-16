@@ -42,6 +42,7 @@ class MinimaxHeuristic
 
     empty_squares = board.get_empty_squares
 
+    result ||= 1 if empty_squares.count == 9
     result ||= empty_squares.detect{ |square| 1 == MinimaxHeuristic.score(player_squares + Array(square), opponent_squares) }
     result ||= empty_squares.max_by{ |square| MinimaxHeuristic.score_if_takes_square(player_squares, opponent_squares, square) }
   end
