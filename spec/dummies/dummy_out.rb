@@ -20,6 +20,7 @@ class DummyOut
   def prompt_to_play_first
     @times_prompted_to_play_first += 1
   end
+
   def printf(s)
     @buffer << s
   end

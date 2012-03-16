@@ -60,9 +60,21 @@ describe StreamUI do
   end
 
   it "asks to go first" do
-    @in.buffer = ["so", "true", "YES", "NO", "YeS", "N\n", "n", "yn", 0, "maybe" ]
+    @in.buffer = ["so", "true", "YES", "NO", "YeS", "N\n", "n" ]
     call = lambda { @ui.go_first? }
-    assert_consecutive_calls(call, [true, false, true, false, false] )
+    assert_consecutive_calls(call, [true, false, true, false, false])
+  end
+
+  it "prints the 'go first' message until you say yes or no" do
+    @in.buffer = [nil, nil, nil, "YES"]
+    @ui.go_first?
+    @out.buffer.should == "Do you want to go first?\n" * 4
+  end
+
+  it "prints the 'next square' message until you give a valid square" do
+    @in.buffer = [0, "y", {}, "bob", 5]
+    @ui.get_square
+    @out.buffer.should == "Select a square (1-9): \n" * 5
   end
 
   def assert_consecutive_calls(p, expected_values)

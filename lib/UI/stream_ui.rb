@@ -27,7 +27,9 @@ class StreamUI
   end
 
   def get_square
-    input = @in.gets.to_i 
+    @out.printf "Select a square (1-9): \n"
+    input = @in.gets
+    input = input.to_i if input.respond_to? :to_i
     ((1..9).include? input) ? input : get_square
   end
 
@@ -37,6 +39,7 @@ class StreamUI
   end
 
   def go_first?
+    @out.printf "Do you want to go first?\n"
     result = input_to_bool
     result.nil? ? go_first? : result
   end
