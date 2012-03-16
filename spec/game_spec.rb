@@ -7,8 +7,8 @@ describe Game do
     p1 = DummyPlayer.new
     p2 = DummyPlayer.new
     @board = Board.new(p1, p2)
-    @dummy_ui = DummyUI.new
-    @game = Game.new(@board, @dummy_ui)
+    @ui = DummyUI.new
+    @game = Game.new(@board, @ui)
 
     DummyPlayer.reset_counter
   end
@@ -25,19 +25,19 @@ describe Game do
     @board.p1.set_moves [1, 2, 3]
     @board.p2.set_moves [4, 5]
     @game.play
-    @dummy_ui.winner_announced.should == @board.p1
-    @dummy_ui.tie_announced.should == nil
+    @ui.winner_announced.should == @board.p1
+    @ui.times_tie_announced.should == 0
   end
 
   it "announces a tie" do
     set_tie_moves_and_play
-    @dummy_ui.winner_announced.should == nil
-    @dummy_ui.tie_announced.should == true
+    @ui.winner_announced.should == nil
+    @ui.times_tie_announced.should == 1
   end
 
   it "announces next turn" do
     set_tie_moves_and_play
-    @dummy_ui.times_next_turn_announced.should == 9
+    @ui.times_next_turn_announced.should == 9
   end
 
   it "asks players for their moves" do
@@ -54,7 +54,7 @@ describe Game do
 
   it "prints the board at the beginning refreshes after each turn" do
     set_tie_moves_and_play
-    @dummy_ui.times_board_refreshed.should == 10
+    @ui.times_board_refreshed.should == 10
   end
   
   def set_tie_moves_and_play

@@ -7,7 +7,8 @@ class DummyUI
                 :times_asked_to_play_again,
                 :times_asked_to_go_first,
                 :winner_announced,
-                :moves_to_make
+                :moves_to_make,
+                :go_first_responses
 
   def initialize
     @times_board_refreshed = 0
@@ -41,6 +42,7 @@ class DummyUI
 
   def go_first?
     @times_asked_to_go_first += 1
+    @go_first_responses.shift
   end
 
   def get_square
