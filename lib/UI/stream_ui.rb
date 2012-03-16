@@ -31,12 +31,20 @@ class StreamUI
     ((1..9).include? input) ? input : get_square
   end
 
-  def play_again
+  def play_again?
     input = @in.gets
     input = input.upcase if input.respond_to? :upcase
     return true if ["YES", "Y"].include? input
     return false if ["NO", "N"].include? input
-    play_again
+    play_again?
+  end
+
+  def go_first?
+    input = @in.gets
+    input = input.upcase if input.respond_to? :upcase
+    return true if ["YES", "Y"].include? input
+    return false if ["NO", "N"].include? input
+    go_first?
   end
 
   def separator_for(square)
