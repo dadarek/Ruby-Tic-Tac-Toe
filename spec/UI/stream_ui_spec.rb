@@ -1,5 +1,4 @@
 require 'UI/stream_ui'
-require 'dummies/dummy_stream'
 require 'dummies/dummy_out'
 require 'dummies/dummy_in'
 require 'board_utilities'
@@ -39,7 +38,7 @@ describe StreamUI do
     @out.buffer.should == "Eric's turn next\n"
   end
 
-  it "has a default stream" do
+  it "has default streams" do
     StreamUI.new
   end
 end
