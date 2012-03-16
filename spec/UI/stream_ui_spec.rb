@@ -4,6 +4,10 @@ require 'dummies/dummy_in'
 require 'board_utilities'
 
 describe StreamUI do
+  MESSAGE_GO_FIRST = "Do you want to go first? "
+  MESSAGE_PLAY_AGAIN = "You wanna play again? "
+  MESSAGE_SELECT_SQUARE = "Select a square (1-9): "
+  
   before(:each) do
     @in = DummyIn.new
     @out = DummyOut.new
@@ -68,19 +72,19 @@ describe StreamUI do
   it "prints the 'go first' message until you give a valid response" do
     @in.buffer = [nil, nil, nil, "YES"]
     @ui.go_first?
-    assert_out_buffer "Do you want to go first? " * 4
+    assert_out_buffer MESSAGE_GO_FIRST * 4
   end
 
   it "prints the 'next square' message until you give a valid square" do
     @in.buffer = [0, "y", {}, "bob", 5]
     @ui.get_square
-    assert_out_buffer "Select a square (1-9): " * 5
+    assert_out_buffer MESSAGE_SELECT_SQUARE * 5
   end
 
   it "prints the 'play again' message until you give a valid response" do
     @in.buffer = ["john smith", 5, true, "N"]
     @ui.play_again?
-    assert_out_buffer "You wanna play again? " * 4
+    assert_out_buffer MESSAGE_PLAY_AGAIN * 4
   end
 
   def assert_consecutive_calls(p, expected_values)
