@@ -1,6 +1,6 @@
 class GameRunner
-  def initialize(prompter, game_factory)
-    @prompter = prompter
+  def initialize(ui, game_factory)
+    @ui = ui
     @game_factory = game_factory
   end
 
@@ -8,6 +8,6 @@ class GameRunner
     begin
       game = @game_factory.create
       game.play
-    end while @prompter.play_again?
+    end while @ui.play_again?
   end
 end
