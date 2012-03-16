@@ -10,7 +10,10 @@ describe StreamUI do
     @ui = StreamUI.new(@in, @out)
     @board = Board.new("x", "o")
   end
-    
+
+  it "has default streams" do
+    StreamUI.new
+  end
 
   it "prints an empty grid" do
     @ui.refresh(@board)
@@ -36,9 +39,5 @@ describe StreamUI do
   it "announces next turn" do
     @ui.announce_next_turn "Eric"
     @out.buffer.should == "Eric's turn next\n"
-  end
-
-  it "has default streams" do
-    StreamUI.new
   end
 end
