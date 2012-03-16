@@ -1,5 +1,5 @@
 class StreamUI
-  def initialize(stream=$stdout)
+  def initialize(stream=$stdout, in_stream=$stdin, out_stream=$stdout)
     @stream = stream
   end
 

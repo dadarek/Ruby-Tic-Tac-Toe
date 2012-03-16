@@ -1,11 +1,13 @@
 require 'UI/stream_ui'
 require 'dummies/dummy_stream'
+require 'dummies/dummy_out'
+require 'dummies/dummy_in'
 require 'board_utilities'
 
 describe StreamUI do
   before(:each) do
     @stream = DummyStream.new
-    @printer = StreamUI.new(@stream)
+    @printer = StreamUI.new(@stream, @in, @out)
     @board = Board.new("x", "o")
   end
     
