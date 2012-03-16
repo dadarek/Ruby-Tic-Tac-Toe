@@ -10,17 +10,20 @@ describe GameFactory do
     ui = DummyUI.new
     ui.go_first_responses = [true, false, false]
     
-
     factory = GameFactory.new(DummyGame, DummyBoard, p1, p2, ui)
-    game = factory.create
-
-    game.board.p1.should == p1
-    game.board.p2.should == p2
-    game.ui.should == ui
-
-    DummyGame.games_created.should == 1
-    DummyGame.games_played.should == 0
     
-    ui.times_asked_to_go_first.should == 1
+    create_game_and_assert_values(factory, p1, p2, ui, 1)
+    create_game_and_assert_values(factory, p2, p1, ui, 2)
+    create_game_and_assert_values(factory, p2, p1, ui, 3)
+  end
+
+  def create_game_and_assert_values(factory, expected_p1, expected_p2, expected_ui, expected_number_of_games)
+    game = factory.create
+    game.board.p1.should == expected_p1
+    game.board.p2.should == expected_p2
+    game.ui.should == expected_ui
+    DummyGame.games_created.should == expected_number_of_games
+    DummyGame.games_played.should == 0
+    expected_ui.times_asked_to_go_first.should == expected_number_of_games
   end
 end
