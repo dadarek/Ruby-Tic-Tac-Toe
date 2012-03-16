@@ -1,25 +1,27 @@
 require 'game_runner'
 require 'dummies/dummy_game'
-require 'dummies/dummy_prompter'
+require 'dummies/dummy_ui'
 require 'dummies/dummy_factory'
 
 describe GameRunner do
   it "create x games and plays that many times" do
+    times_to_play = 5
+
     DummyGame.reset_stats
 
-    prompter = DummyPrompter.new
-    prompter.times_to_play = 5
-
+    ui = DummyUI.new
+    ui.times_to_play_again = times_to_play
+    
     factory = DummyFactory.new
 
-    runner = GameRunner.new(prompter, factory)
+    runner = GameRunner.new(ui, factory)
     runner.go
 
-    prompter.times_play_again_asked.should == 5
-    factory.games_created.should == 5
+    ui.times_asked_to_play_again.should == times_to_play
+    factory.games_created.should == times_to_play
 
-    DummyGame.games_played.should == 5
-    DummyGame.games_created.should == 5
+    DummyGame.games_played.should == times_to_play
+    DummyGame.games_created.should == times_to_play
   end
   
 end
