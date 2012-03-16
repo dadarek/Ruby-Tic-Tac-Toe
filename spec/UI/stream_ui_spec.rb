@@ -2,6 +2,7 @@ require 'UI/stream_ui'
 require 'dummies/dummy_out'
 require 'dummies/dummy_in'
 require 'board_utilities'
+require 'board'
 
 describe StreamUI do
   MESSAGE_GO_FIRST = "Do you want to go first? "

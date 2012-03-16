@@ -1,4 +1,8 @@
 class StreamUI
+  @@MESSAGE_GO_FIRST = "Do you want to go first? "
+  @@MESSAGE_PLAY_AGAIN = "You wanna play again? "
+  @@MESSAGE_SELECT_SQUARE = "Select a square (1-9): "
+
   def initialize(in_stream=$stdin, out_stream=$stdout)
     @in = in_stream
     @out = out_stream
@@ -27,20 +31,20 @@ class StreamUI
   end
 
   def get_square
-    print "Select a square (1-9): "
+    print @@MESSAGE_SELECT_SQUARE
     input = @in.gets
     input = input.to_i if input.respond_to? :to_i
     ((1..9).include? input) ? input : get_square
   end
 
   def play_again?
-    print "You wanna play again? "
+    print @@MESSAGE_PLAY_AGAIN
     result = input_to_bool
     result.nil? ? play_again? : result
   end
 
   def go_first?
-    print "Do you want to go first? "
+    print @@MESSAGE_GO_FIRST
     result = input_to_bool
     result.nil? ? go_first? : result
   end
