@@ -1,17 +1,18 @@
 require 'human_player'
-require 'dummies/dummy_prompter'
+require 'dummies/dummy_ui'
 
 describe HumanPlayer do
   before(:each) do
-    @prompter = DummyPrompter.new
-    @player = HumanPlayer.new(@prompter)
+    @ui = DummyUI.new
+    @player = HumanPlayer.new(@ui)
   end
 
   it "listens to user prompter several times" do
-    @prompter.moves = [5, 9, 1]
+    @ui.moves_to_make = [5, 9, 1]
     @player.next_move(nil).should == 5
     @player.next_move(nil).should == 9
     @player.next_move(nil).should == 1 
+    @ui.times_square_got.should == 3
   end
 
   it "has a name" do

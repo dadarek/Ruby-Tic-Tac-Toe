@@ -6,7 +6,8 @@ class DummyUI
                 :times_to_play_again,
                 :times_asked_to_play_again,
                 :times_asked_to_go_first,
-                :winner_announced
+                :winner_announced,
+                :moves_to_make
 
   def initialize
     @times_board_refreshed = 0
@@ -44,5 +45,6 @@ class DummyUI
 
   def get_square
     @times_square_got += 1
+    @moves_to_make.shift
   end
 end
