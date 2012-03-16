@@ -41,36 +41,31 @@ describe StreamUI do
     @out.buffer.should == "Eric's turn next\n"
   end
   
-  it "asks for next square" do
-    @in.buffer = [2]
-    @ui.get_square.should == 2
-  end
-  
   it "asks for next square, ignoring whitespace" do
     @in.buffer = ["2 ", "1\n", "3  \n", "  7 \n"]
-    @ui.get_square.should == 2
-    @ui.get_square.should == 1
-    @ui.get_square.should == 3
-    @ui.get_square.should == 7
+    call = lambda { @ui.get_square }
+    assert_consecutive_calls(call, [2, 1, 3, 7])
   end
 
   it "asks for next square, ignoring bogus input" do
     @in.buffer = ["2 ", "hello", 0, "eric", "7 hundred", 5]
-    @ui.get_square.should == 2
-    @ui.get_square.should == 7
+    call = lambda { @ui.get_square }
+    assert_consecutive_calls(call, [2, 7])
   end
 
   it "asks to play again" do
     @in.buffer = ["y", "yn", 0, "maybe so", "true", "YES", "no", "YeS", "N"]
-    call_and_assert(lambda { @ui.play_again?}, [true, true, false, true, false] )
+    call = lambda { @ui.play_again?} 
+    assert_consecutive_calls(call, [true, true, false, true, false] )
   end
 
   it "asks to go first" do
     @in.buffer = ["so", "true", "YES", "NO", "YeS", "N", "n", "yn", 0, "maybe" ]
-    call_and_assert(lambda { @ui.go_first?}, [true, false, true, false, false] )
+    call = lambda { @ui.go_first? }
+    assert_consecutive_calls(call, [true, false, true, false, false] )
   end
 
-  def call_and_assert(p, expected_values)
+  def assert_consecutive_calls(p, expected_values)
     expected_values.each{ |value| p.call.should == value } 
   end
 end
