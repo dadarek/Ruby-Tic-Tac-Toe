@@ -1,6 +1,7 @@
 class StreamUI
   @@MESSAGE_GO_FIRST = "Do you want to go first? "
   @@MESSAGE_PLAY_AGAIN = "You wanna play again? "
+  @@MESSAGE_COMP_VS_COMP = "Computer v.s. Computer? "
   @@MESSAGE_SELECT_SQUARE = "Select a square (1-9): "
 
   def initialize(in_stream=$stdin, out_stream=$stdout)
@@ -41,6 +42,12 @@ class StreamUI
     print @@MESSAGE_PLAY_AGAIN
     result = input_to_bool
     result.nil? ? play_again? : result
+  end
+
+  def comp_vs_comp?
+    print @@MESSAGE_COMP_VS_COMP
+    result = input_to_bool
+    result.nil? ? comp_vs_comp? : result
   end
 
   def go_first?

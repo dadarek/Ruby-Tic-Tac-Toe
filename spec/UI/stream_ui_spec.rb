@@ -8,6 +8,7 @@ describe StreamUI do
   MESSAGE_GO_FIRST = "Do you want to go first? "
   MESSAGE_PLAY_AGAIN = "You wanna play again? "
   MESSAGE_SELECT_SQUARE = "Select a square (1-9): "
+  MESSAGE_COMP_VS_COMP = "Computer v.s. Computer? "
   
   before(:each) do
     @in = DummyIn.new
@@ -64,6 +65,12 @@ describe StreamUI do
     assert_consecutive_calls(call, [true, true, false, true, false] )
   end
 
+  it "asks if comp v.s. comp" do
+    @in.buffer = ["y", "n", "NN", "yy", "yes"]
+    call = lambda { @ui.comp_vs_comp? } 
+    assert_consecutive_calls(call, [true, false, true] )
+  end
+
   it "asks to go first" do
     @in.buffer = ["so", "true", "YES", "NO", "YeS", "N\n", "n" ]
     call = lambda { @ui.go_first? }
@@ -74,6 +81,12 @@ describe StreamUI do
     @in.buffer = [nil, nil, nil, "YES"]
     @ui.go_first?
     assert_out_buffer MESSAGE_GO_FIRST * 4
+  end
+
+  it "prints the 'comp v.s. comp' message until you give a valid response" do
+    @in.buffer = [nil, "NO"]
+    @ui.comp_vs_comp?
+    assert_out_buffer MESSAGE_COMP_VS_COMP * 2
   end
 
   it "prints the 'next square' message until you give a valid square" do
