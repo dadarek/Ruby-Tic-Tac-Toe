@@ -31,10 +31,10 @@ describe GameFactory do
     ui.go_first_responses = [true, false]
     factory = GameFactory.new(nil, nil, nil, nil, ui)
 
-    players = factory.create_computer_vs_player
+    players = factory.create_computer_vs_human
     assert_players(players, HumanPlayer, ComputerPlayer)
 
-    players = factory.create_computer_vs_player
+    players = factory.create_computer_vs_human
     assert_players(players, ComputerPlayer, HumanPlayer)
   end
 
@@ -44,6 +44,24 @@ describe GameFactory do
 
     player = factory.create_human
     player.ui.should == ui
+  end
+
+  it "creates appropriate players according to ui" do
+    ui = DummyUI.new
+    ui.go_first_responses = [false, true, false]
+    ui.computer_vs_computer_responses = [false, true, true, false, false]
+    
+    factory = GameFactory.new(nil, nil, nil, nil, ui)
+    players = factory.create_players
+    assert_players(players, ComputerPlayer, HumanPlayer)
+    players = factory.create_players
+    assert_players(players, ComputerPlayer, ComputerPlayer)
+    players = factory.create_players
+    assert_players(players, ComputerPlayer, ComputerPlayer)
+    players = factory.create_players
+    assert_players(players, HumanPlayer, ComputerPlayer)
+    players = factory.create_players
+    assert_players(players, ComputerPlayer, HumanPlayer)
   end
 
   def assert_players(players, expected_first_player, expected_second_player)
