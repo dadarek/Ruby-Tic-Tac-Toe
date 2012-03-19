@@ -24,39 +24,39 @@ describe MinimaxHeuristic do
   end
 
   it "scores winning square as 1" do
-    MinimaxHeuristic.score_if_takes_square([1, 3, 5, 8], [2, 4, 6, 7], 9).should == 1
+    MinimaxHeuristicHelper.score_if_takes_square([1, 3, 5, 8], [2, 4, 6, 7], 9).should == 1
   end
 
   it "scores final netural square as 0" do
-    MinimaxHeuristic.score_if_takes_square([4, 6, 7, 9], [1, 3, 5, 8], 9).should == 0
+    MinimaxHeuristicHelper.score_if_takes_square([4, 6, 7, 9], [1, 3, 5, 8], 9).should == 0
   end
 
   it "scores a losing second-to-last move as -1" do
-    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5, 8], 6).should == -1
+    MinimaxHeuristicHelper.score_if_takes_square([2, 4, 7], [1, 3, 5, 8], 6).should == -1
   end
   
   it "scores a guaranteed-tie second-to-last move as 0" do
-    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5, 8], 9).should == 0
+    MinimaxHeuristicHelper.score_if_takes_square([2, 4, 7], [1, 3, 5, 8], 9).should == 0
   end
 
   it "scores a guaranteed-win third-to-last move as 1" do
-    MinimaxHeuristic.score_if_takes_square([1, 7, 8], [2, 4, 5], 9).should == 1
+    MinimaxHeuristicHelper.score_if_takes_square([1, 7, 8], [2, 4, 5], 9).should == 1
   end
 
   it "scores a possible-win third-to-last move as 0" do
-    MinimaxHeuristic.score_if_takes_square([1, 7, 8], [2, 4, 5], 6).should == 0
+    MinimaxHeuristicHelper.score_if_takes_square([1, 7, 8], [2, 4, 5], 6).should == 0
   end
 
   it "scores a guaranteed-loss third-to-last move as -1" do
-    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5], 6).should == -1
+    MinimaxHeuristicHelper.score_if_takes_square([2, 4, 7], [1, 3, 5], 6).should == -1
   end
 
   it "scores a one-possible-win third-to-last move as 0" do
-    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5], 9).should == 0
+    MinimaxHeuristicHelper.score_if_takes_square([2, 4, 7], [1, 3, 5], 9).should == 0
   end
 
   it "scores a one-possible-win one-guaranteed-loss third-to-last move as -1" do
-    MinimaxHeuristic.score_if_takes_square([2, 4, 7], [1, 3, 5], 8).should == -1
+    MinimaxHeuristicHelper.score_if_takes_square([2, 4, 7], [1, 3, 5], 8).should == -1
   end
 
   it "selects the correct (non-winning) next move" do
@@ -80,6 +80,6 @@ describe MinimaxHeuristic do
   end
 
   def assert_score(p1_squares, p2_squares, expected_score)
-    MinimaxHeuristic.score(p1_squares, p2_squares).should == expected_score
+    MinimaxHeuristicHelper.score(p1_squares, p2_squares).should == expected_score
   end
 end
