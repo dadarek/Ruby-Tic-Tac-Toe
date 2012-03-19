@@ -23,8 +23,7 @@ describe GameFactory do
     factory = GameFactory.new(nil, nil, nil, nil, nil)
 
     players = factory.create_computer_vs_computer
-    players[0].class.should == ComputerPlayer
-    players[1].class.should == ComputerPlayer
+    assert_players(players, ComputerPlayer, ComputerPlayer)
   end
 
   it "creates computer and player in correct order" do
@@ -33,12 +32,10 @@ describe GameFactory do
     factory = GameFactory.new(nil, nil, nil, nil, ui)
 
     players = factory.create_computer_vs_player
-    players[0].class.should == HumanPlayer 
-    players[1].class.should == ComputerPlayer
+    assert_players(players, HumanPlayer, ComputerPlayer)
 
     players = factory.create_computer_vs_player
-    players[0].class.should == ComputerPlayer
-    players[1].class.should == HumanPlayer 
+    assert_players(players, ComputerPlayer, HumanPlayer)
   end
 
   it "creates human with ui" do
@@ -49,6 +46,10 @@ describe GameFactory do
     player.ui.should == ui
   end
 
+  def assert_players(players, expected_first_player, expected_second_player)
+    players[0].class.should == expected_first_player
+    players[1].class.should == expected_second_player
+  end
 
   def create_game_and_assert_values(factory, expected_p1, expected_p2, expected_ui, expected_number_of_games)
     game = factory.create
