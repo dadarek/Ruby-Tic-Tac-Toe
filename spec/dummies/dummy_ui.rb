@@ -51,7 +51,7 @@ class DummyUI
     @moves_to_make.shift
   end
 
-  def comp_vs_comp
+  def comp_vs_comp?
     @computer_vs_computer_responses.shift
   end
 end

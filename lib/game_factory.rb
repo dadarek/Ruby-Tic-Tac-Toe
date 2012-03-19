@@ -15,7 +15,7 @@ class GameFactory
   end
 
   def create_players
-    @ui.comp_vs_comp ? create_computer_vs_computer : create_computer_vs_human
+    @ui.comp_vs_comp? ? create_computer_vs_computer : create_computer_vs_human
   end
 
   def create_computer_vs_computer
