@@ -10,13 +10,13 @@ describe MinimaxHeuristic do
 
   it "knows all winning combinations" do
     MinimaxHeuristicHelper.won?([1, 2, 3]).should == true
-    assert_win_loss([4, 5, 6], [7, 8])
-    assert_win_loss([7, 8, 9], [1, 2])
-    assert_win_loss([1, 4, 7], [2, 3])
-    assert_win_loss([2, 5, 8], [1, 3])
-    assert_win_loss([3, 6, 9], [1, 2])
-    assert_win_loss([1, 5, 9], [2, 3])
-    assert_win_loss([3, 5, 7], [1, 2])
+    MinimaxHeuristicHelper.won?([4, 5, 6]).should == true
+    MinimaxHeuristicHelper.won?([7, 8, 9]).should == true
+    MinimaxHeuristicHelper.won?([1, 4, 7]).should == true
+    MinimaxHeuristicHelper.won?([2, 5, 8]).should == true
+    MinimaxHeuristicHelper.won?([3, 6, 9]).should == true
+    MinimaxHeuristicHelper.won?([1, 5, 9]).should == true
+    MinimaxHeuristicHelper.won?([3, 5, 7]).should == true
   end
 
   it "scores winning square as 1" do
@@ -72,15 +72,5 @@ describe MinimaxHeuristic do
   def assert_value_of_next_square(player, opponent, next_square, expected_value)
     helper = MinimaxHeuristicHelper.new(player, opponent)
     helper.value?(next_square).should == expected_value
-  end
-
-
-  def assert_win_loss(winning_squares, losing_squares)
-    assert_score(winning_squares, losing_squares, 1)
-    assert_score(losing_squares, winning_squares, -1)
-  end
-
-  def assert_score(p1_squares, p2_squares, expected_score)
-    MinimaxHeuristicHelper.score(p1_squares, p2_squares).should == expected_score
   end
 end
