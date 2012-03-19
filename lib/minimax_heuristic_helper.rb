@@ -9,16 +9,40 @@ class MinimaxHeuristicHelper
   end
   
   def self.score(player, opponent)
-    if won? player.to_set
+    if won? player
       return 1
-    elsif won? opponent.to_set
+    elsif won? opponent
       return -1
     end
     0
   end
 
   def value?(next_square)
-    MinimaxHeuristicHelper.score_if_takes_square(@player, @opponent, next_square)
+    if win? next_square
+      return 1
+    elsif tie?
+      return 0
+    else
+      return -1 * (opponents_best_with next_square)
+    end
+  end
+
+  def opponents_best_with next_square
+    player_new = @player + Array(next_square)
+    helper = MinimaxHeuristicHelper.new(@opponent, player_new)
+    empty = Array(1..9) - player_new - @opponent
+    possible_scores = empty.collect{ |square| helper.value? square }
+    possible_scores.max
+  end
+
+
+  def win? next_square
+    player_new = @player + Array(next_square)
+    MinimaxHeuristicHelper.won? player_new
+  end
+
+  def tie?
+    8 == @player.count + @opponent.count
   end
 
   def self.score_if_takes_square(player, opponent, next_square)
@@ -38,7 +62,8 @@ class MinimaxHeuristicHelper
   end
 
   def self.won?(squares)
-    nil != @@POSSIBLE_WINS.detect{ |win| win.subset? squares }
+    set = squares.to_set
+    nil != @@POSSIBLE_WINS.detect{ |win| win.subset? set }
   end
 
 end

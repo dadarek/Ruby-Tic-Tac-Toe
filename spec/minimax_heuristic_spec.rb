@@ -8,12 +8,8 @@ describe MinimaxHeuristic do
     @board = Board.new("x", "o")
   end
 
-  it "scores tie as 0" do
-    assert_score([1, 3, 4, 6, 8], [2, 5, 7, 9], 0)
-  end
-
-  it "scores wins as 1 and losses as -1" do
-    assert_win_loss([1, 2, 3], [4, 5])
+  it "knows all winning combinations" do
+    MinimaxHeuristicHelper.won?([1, 2, 3]).should == true
     assert_win_loss([4, 5, 6], [7, 8])
     assert_win_loss([7, 8, 9], [1, 2])
     assert_win_loss([1, 4, 7], [2, 3])
