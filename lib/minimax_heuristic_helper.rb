@@ -1,4 +1,8 @@
 class MinimaxHeuristicHelper
+  @@POSSIBLE_WINS = [ Set[1, 2, 3], Set[4, 5, 6], Set[7, 8, 9],
+                     Set[1, 4, 7], Set[2, 5, 8], Set[3, 6, 9],
+                     Set[1, 5, 9], Set[3, 5, 7]
+                    ]
 
   def initialize(board, player)
     @player_squares = board.get_player_squares player
@@ -13,8 +17,8 @@ class MinimaxHeuristicHelper
 
   def next_move
     result ||= 1 if @empty_squares.count == 9
-    result ||= @empty_squares.detect{ |square| 1 == @score(@player_squares + Array(square), @opponent_squares) }
-    result ||= @empty_squares.max_by{ |square| @score_if_takes_square(@player_squares, @opponent_squares, square) }
+    result ||= @empty_squares.detect{ |square| 1 == score(@player_squares + Array(square), @opponent_squares) }
+    result ||= @empty_squares.max_by{ |square| score_if_takes_square(@player_squares, @opponent_squares, square) }
   end
 
   def score(player, opponent)
