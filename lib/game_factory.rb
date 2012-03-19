@@ -1,5 +1,6 @@
-require 'computer_player'
-require 'minimax_heuristic'
+require_relative 'computer_player'
+require_relative 'human_player'
+require_relative 'minimax_heuristic'
 
 class GameFactory
   def initialize(game_class, board_class, ui)
