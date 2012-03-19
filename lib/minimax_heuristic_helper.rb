@@ -1,18 +1,15 @@
+require 'board'
+
 class MinimaxHeuristicHelper
   @@POSSIBLE_WINS = [ Set[1, 2, 3], Set[4, 5, 6], Set[7, 8, 9],
                      Set[1, 4, 7], Set[2, 5, 8], Set[3, 6, 9],
                      Set[1, 5, 9], Set[3, 5, 7]
                     ]
 
-  def initialize(board, player)
-    @player_squares = board.get_player_squares player
-    @opponent_squares = get_opponent_squares(board, player)
-    @empty_squares = board.get_empty_squares
-  end
-
-  def get_opponent_squares(board, player)
-    opponent = player == board.p1 ? board.p2 : board.p1
-    @opponent_squares = board.get_player_squares opponent
+  def initialize(player_squares, opponent_squares)
+    @player_squares = player_squares
+    @opponent_squares = opponent_squares
+    @empty_squares = Array(1..9) - player_squares - opponent_squares
   end
 
   def next_move
@@ -22,31 +19,64 @@ class MinimaxHeuristicHelper
   end
 
   def score(player, opponent)
-    if won? player.to_set
+    if won?
       return 1
-    elsif won? opponent.to_set
+    elsif lost?
       return -1
     end
     0
   end
 
-  def score_if_takes_square(player, opponent, next_square)
-    new_player = player + Array(next_square)
+  def score_if_takes_square(next_square)
+    result = nil
 
-    result = score(new_player, opponent)
-    if result == 0 and not last_move?(new_player, opponent)
-      open_squares = Array(1..9) - new_player - opponent
-      possible_opponent_results = open_squares.collect{ |square| score_if_takes_square(opponent, new_player, square) }
-      result = (possible_opponent_results.max) * -1
+    if will_win? next_square
+      result = 1
+    elsif will_lose? next_square
+      result = -1
+    elsif no_moves_left?
+      result = 0
+    else
+      new_player_squares = player + Array(next_square)
+      open_squares = Array(1..9) - new_player_squares - opponent_squares
+
+      best_square = open_squares.min_by{ |square|
+        helper = MinimaxHeuristicHelper.new(@board, @opponent)
+        helper.score_if_takes_square(opponent_squares, new_player_squares, square)
+      }
+      
+      helper = MinimaxHeuristicHelper.new(@board, @opponent)
+      result = helper.score_if_takes_square(opponent_squares, new_player_squares, best_square)
     end
     result
   end
 
-  def last_move?(player, opponent)
-    player.count + opponent.count == 9
+  def no_moves_left?
+    9 == player_squares.count + opponent_squares.count
   end
 
-  def won?(squares)
+  def will_win? square
+    new_squares = @player_squares + Array(square)
+    HeuristicHelper.winning_squares? new_squares.to_set
+  end
+
+  def will_lose? square
+    HeuristicHelper.winning_squares? opponent_squares.to_set
+  end
+
+  def self.winning_squares?(squares)
     nil != @@POSSIBLE_WINS.detect{ |win| win.subset? squares }
+  end
+
+  def player_squares
+    @board.get_player_squares @player
+  end
+
+  def opponent_squares
+    @board.get_player_squares @opponent
+  end
+
+  def empty_squares
+    @board.get_empty_squares
   end
 end

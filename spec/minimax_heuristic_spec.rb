@@ -15,14 +15,14 @@ describe MinimaxHeuristic do
   end
 
   it "scores wins as 1 and losses as -1" do
-    assert_win_loss([1, 2, 3], [4, 5])
-    assert_win_loss([4, 5, 6], [7, 8])
-    assert_win_loss([7, 8, 9], [1, 2])
-    assert_win_loss([1, 4, 7], [2, 3])
-    assert_win_loss([2, 5, 8], [1, 3])
-    assert_win_loss([3, 6, 9], [1, 2])
-    assert_win_loss([1, 5, 9], [2, 3])
-    assert_win_loss([3, 5, 7], [1, 2])
+    assert_winning_squares([1, 2, 3], [4, 5])
+    assert_winning_squares([4, 5, 6], [7, 8])
+    assert_winning_squares([7, 8, 9], [1, 2])
+    assert_winning_squares([1, 4, 7], [2, 3])
+    assert_winning_squares([2, 5, 8], [1, 3])
+    assert_winning_squares([3, 6, 9], [1, 2])
+    assert_winning_squares([1, 5, 9], [2, 3])
+    assert_winning_squares([3, 5, 7], [1, 2])
   end
 
   it "scores winning square as 1" do
@@ -76,9 +76,8 @@ describe MinimaxHeuristic do
   end
 
 
-  def assert_win_loss(winning_squares, losing_squares)
-    assert_score(winning_squares, losing_squares, 1)
-    assert_score(losing_squares, winning_squares, -1)
+  def assert_winning_squares(expected_winning_squares)
+    HeuristicHelper.winning_squares?(expected_winning_squares).should == true
   end
 
   def assert_score(p1_squares, p2_squares, expected_score)
