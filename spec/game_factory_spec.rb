@@ -1,5 +1,6 @@
 require 'game_factory'
 require 'computer_player'
+require 'human_player'
 require 'dummies/dummy_game'
 require 'dummies/dummy_board'
 require 'dummies/dummy_ui'
@@ -21,9 +22,31 @@ describe GameFactory do
   it "creates 2 computer players" do
     factory = GameFactory.new(nil, nil, nil, nil, nil)
 
-    players = factory.create_computers
+    players = factory.create_computer_vs_computer
     players[0].class.should == ComputerPlayer
     players[1].class.should == ComputerPlayer
+  end
+
+  it "creates computer and player in correct order" do
+    ui = DummyUI.new
+    ui.go_first_responses = [true, false]
+    factory = GameFactory.new(nil, nil, nil, nil, ui)
+
+    players = factory.create_computer_vs_player
+    players[0].class.should == HumanPlayer 
+    players[1].class.should == ComputerPlayer
+
+    players = factory.create_computer_vs_player
+    players[0].class.should == ComputerPlayer
+    players[1].class.should == HumanPlayer 
+  end
+
+  it "creates human with ui" do
+    ui = "Some UI"
+    factory = GameFactory.new(nil, nil, nil, nil, ui)
+
+    player = factory.create_human
+    player.ui.should == ui
   end
 
 

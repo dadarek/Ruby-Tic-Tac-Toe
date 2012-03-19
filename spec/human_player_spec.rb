@@ -18,5 +18,9 @@ describe HumanPlayer do
   it "has a name" do
     @player.to_s.should == "You"
   end
+
+  it "has a ui" do
+    @player.ui.should == @ui
+  end
 end
 

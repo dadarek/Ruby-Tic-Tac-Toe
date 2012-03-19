@@ -19,9 +19,26 @@ class GameFactory
     @game_class.new(board, @ui)
   end
 
-  def create_computers
-    result = []
-    2.times{ result.push ComputerPlayer.new MinimaxHeuristic.new }
-    result
+  def create_computer_vs_computer
+    [create_computer, create_computer]
+  end
+
+  def create_computer
+   ComputerPlayer.new MinimaxHeuristic.new 
+  end
+
+  def create_human
+    HumanPlayer.new @ui
+  end
+
+  def create_computer_vs_player
+    human = create_human
+    computer = create_computer
+
+    go_first = @ui.go_first?
+    p1 = go_first ? human : computer
+    p2 = go_first ? computer : human
+    
+    [p1, p2]
   end
 end

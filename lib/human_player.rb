@@ -1,4 +1,6 @@
 class HumanPlayer
+  attr_accessor :ui
+
   def initialize(ui)
     @ui = ui 
   end
