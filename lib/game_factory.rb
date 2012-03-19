@@ -1,3 +1,6 @@
+require 'computer_player'
+require 'minimax_heuristic'
+
 class GameFactory
   def initialize(game_class, board_class, human, computer, ui)
     @game_class = game_class
@@ -14,5 +17,11 @@ class GameFactory
     
     board = @board_class.new(p1, p2)
     @game_class.new(board, @ui)
+  end
+
+  def create_computers
+    result = []
+    2.times{ result.push ComputerPlayer.new MinimaxHeuristic.new }
+    result
   end
 end

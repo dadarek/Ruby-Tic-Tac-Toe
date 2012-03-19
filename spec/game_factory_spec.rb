@@ -1,4 +1,5 @@
 require 'game_factory'
+require 'computer_player'
 require 'dummies/dummy_game'
 require 'dummies/dummy_board'
 require 'dummies/dummy_ui'
@@ -16,6 +17,15 @@ describe GameFactory do
     create_game_and_assert_values(factory, p2, p1, ui, 2)
     create_game_and_assert_values(factory, p2, p1, ui, 3)
   end
+
+  it "creates 2 computer players" do
+    factory = GameFactory.new(nil, nil, nil, nil, nil)
+
+    players = factory.create_computers
+    players[0].class.should == ComputerPlayer
+    players[1].class.should == ComputerPlayer
+  end
+
 
   def create_game_and_assert_values(factory, expected_p1, expected_p2, expected_ui, expected_number_of_games)
     game = factory.create

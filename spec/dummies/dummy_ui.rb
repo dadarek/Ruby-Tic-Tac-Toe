@@ -8,7 +8,8 @@ class DummyUI
                 :times_asked_to_go_first,
                 :winner_announced,
                 :moves_to_make,
-                :go_first_responses
+                :go_first_responses,
+                :computer_vs_computer_responses
 
   def initialize
     @times_board_refreshed = 0
@@ -48,5 +49,9 @@ class DummyUI
   def get_square
     @times_square_got += 1
     @moves_to_make.shift
+  end
+
+  def comp_vs_comp
+    @computer_vs_computer_responses.shift
   end
 end
