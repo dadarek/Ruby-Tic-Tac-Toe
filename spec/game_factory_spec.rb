@@ -52,16 +52,16 @@ describe GameFactory do
     ui.computer_vs_computer_responses = [false, true, true, false, false]
     
     factory = GameFactory.new(nil, nil, nil, nil, ui)
+    create_players_and_assert(factory, ComputerPlayer, HumanPlayer)
+    create_players_and_assert(factory, ComputerPlayer, ComputerPlayer)
+    create_players_and_assert(factory, ComputerPlayer, ComputerPlayer)
+    create_players_and_assert(factory, HumanPlayer, ComputerPlayer)
+    create_players_and_assert(factory, ComputerPlayer, HumanPlayer)
+  end
+
+  def create_players_and_assert(factory, expected_first_player, expected_second_player)
     players = factory.create_players
-    assert_players(players, ComputerPlayer, HumanPlayer)
-    players = factory.create_players
-    assert_players(players, ComputerPlayer, ComputerPlayer)
-    players = factory.create_players
-    assert_players(players, ComputerPlayer, ComputerPlayer)
-    players = factory.create_players
-    assert_players(players, HumanPlayer, ComputerPlayer)
-    players = factory.create_players
-    assert_players(players, ComputerPlayer, HumanPlayer)
+    assert_players(players, expected_first_player, expected_second_player)
   end
 
   def assert_players(players, expected_first_player, expected_second_player)
