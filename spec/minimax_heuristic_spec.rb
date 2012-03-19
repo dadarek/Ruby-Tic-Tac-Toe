@@ -4,8 +4,6 @@ require 'board'
 
 describe MinimaxHeuristic do
   before(:each) do
-    @heuristic = MinimaxHeuristic.new
-    @board = Board.new("x", "o")
   end
 
   it "knows all winning combinations" do
@@ -56,21 +54,26 @@ describe MinimaxHeuristic do
   end
 
   it "selects the correct (non-winning) next move" do
-    take_x_o(@board, [2, 4, 7], [1, 3, 5])
-    @heuristic.next_move(@board, "x").should == 9
+    take_and_assert_next([2, 4, 7], [1, 3, 5], 9)
   end
 
   it "selects the correct (winning) next move" do
-    take_x_o(@board, [1, 2], [4, 5])
-    @heuristic.next_move(@board, "x").should == 3
+    take_and_assert_next([1, 2], [4, 5], 3)
   end
 
   it "makes the correct first move" do
-    @heuristic.next_move(@board, "x").should == 1
+    take_and_assert_next([], [], 1)
   end
 
   def assert_value_of_next_square(player, opponent, next_square, expected_value)
     helper = MinimaxHeuristicHelper.new(player, opponent)
     helper.value?(next_square).should == expected_value
+  end
+
+  def take_and_assert_next(x_moves, o_moves, expected_next)
+    heuristic = MinimaxHeuristic.new
+    board = Board.new("x", "o")
+    take_x_o(board, x_moves, o_moves)
+    heuristic.next_move(board, "x").should == expected_next
   end
 end
