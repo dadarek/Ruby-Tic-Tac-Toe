@@ -3,6 +3,10 @@ class MinimaxHeuristicHelper
                      Set[1, 4, 7], Set[2, 5, 8], Set[3, 6, 9],
                      Set[1, 5, 9], Set[3, 5, 7]
                     ]
+  def initialize(player, opponent)
+    @player = player
+    @opponent = opponent
+  end
   
   def self.score(player, opponent)
     if won? player.to_set
@@ -11,6 +15,10 @@ class MinimaxHeuristicHelper
       return -1
     end
     0
+  end
+
+  def value?(next_square)
+    MinimaxHeuristicHelper.score_if_takes_square(@player, @opponent, next_square)
   end
 
   def self.score_if_takes_square(player, opponent, next_square)
