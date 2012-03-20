@@ -1,5 +1,5 @@
 require 'set'
-require 'minimax_heuristic_helper'
+require_relative 'minimax_heuristic_helper'
 
 class MinimaxHeuristic
   def next_move(board, player)
